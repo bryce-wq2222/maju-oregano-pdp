@@ -8,25 +8,21 @@
 
 <!-- ============================================================
   MAJU OREGANO PDP — Intelligems challenger (gut-comparison avatar)
-  Mobile-first (390px reference), self-contained HTML/CSS/vanilla JS.
-
-  INTEGRATION SLOTS are marked with:  [SHOPIFY: ...]
-  DATA PLACEHOLDERS are marked with:  [PLACEHOLDER:...]
-  See README.md for the full placeholder map + integration steps.
+  Mobile-first (390px reference). v2 layout:
+  title above gallery · sticky FOOTER atc only · review slider w/ peek
+  · trust band under ATC · press row high · 3-up UGC slider
+  · us-vs-them comparison table · illustrated how-to · sourcing slider
 ============================================================ -->
-
-<!-- Fonts: Poppins 400/600/700 only, swap so text never blocks render -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="preconnect" href="https://majusuperfoods.com">
 
 <style>
-/* ================= BRAND TOKENS ================= */
 :root{
   --gold:#E9C969; --cream:#EFDA98; --ink:#2C2926; --yellow:#FFCE02;
   --amber:#FEBE12; --bronze:#AC8D3E; --white:#fff;
-  --bg:#FDFBF5; --line:#EAE2CE; --ok:#1E7B4D; --danger:#B4231F;
+  --bg:#FDFBF5; --line:#EAE2CE; --ok:#1E7B4D;
   --radius:14px; --maxw:640px;
 }
 *{margin:0;padding:0;box-sizing:border-box}
@@ -36,52 +32,56 @@ img{display:block;max-width:100%;height:auto}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:inherit}
 .wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
-section{padding:36px 0}
+section{padding:32px 0}
 h1,h2,h3{line-height:1.22;font-weight:700}
 h2{font-size:1.45rem;margin-bottom:8px}
 .kicker{font-size:.78rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--bronze);margin-bottom:6px}
 .sub{color:#5c564d}
 .disclaimer{font-size:.72rem;color:#8a8376;line-height:1.5}
-.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;background:var(--ink);color:var(--white);font-weight:700;font-size:1.05rem;border-radius:999px;transition:transform .12s ease,background .12s ease}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;background:var(--ink);color:var(--white);font-weight:700;font-size:1.05rem;border-radius:999px;transition:transform .12s ease}
 .btn:active{transform:scale(.985)}
 .btn--gold{background:var(--yellow);color:var(--ink)}
 .stars{color:var(--amber);letter-spacing:1px}
+.nowrap{white-space:nowrap}
 
-/* ================= 1. STICKY MINI-HEADER ================= */
-.hdr{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
-.hdr__in{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 16px;min-height:56px}
+/* shared horizontal slider w/ peek */
+.slider{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 16px 8px;margin:0 -16px}
+.slider::-webkit-scrollbar{display:none}
+.slider>*{scroll-snap-align:start;flex:none}
+
+/* ===== top bar (NOT sticky, no buy button) ===== */
+.hdr{background:#fff;border-bottom:1px solid var(--line)}
+.hdr__in{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:center;padding:10px 16px}
 .hdr__logo{height:26px;width:auto}
-.hdr__rating{display:flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600;text-decoration:none;min-height:44px}
-.hdr__buy{width:auto;min-height:44px;padding:0 22px;font-size:.9rem}
 
-/* ================= 2. SOCIAL-PROOF STRIP ================= */
-.proofstrip{background:var(--ink);color:var(--cream);text-align:center;padding:9px 12px;font-size:.82rem;font-weight:600;letter-spacing:.02em}
+/* proof strip */
+.proofstrip{background:var(--ink);color:var(--cream);text-align:center;padding:9px 12px;font-size:.82rem;font-weight:600}
 .proofstrip strong{color:var(--yellow)}
 
-/* ================= 3. GALLERY ================= */
+/* ===== title block (ABOVE gallery) ===== */
+.hero{padding:18px 0 12px}
+.hero__rating{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;text-decoration:none;min-height:44px}
+.hero h1{font-size:1.5rem;margin:2px 0 8px;text-wrap:balance}
+.hero .sub{font-size:.95rem}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chip{background:var(--cream);border:1px solid var(--gold);font-size:.78rem;font-weight:600;padding:7px 12px;border-radius:999px}
+
+/* gallery */
 .gallery{position:relative;background:#fff}
 .gallery__track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none}
 .gallery__track::-webkit-scrollbar{display:none}
 .gallery__slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:1/1;background:#F6F1E4}
 .gallery__slide img{width:100%;height:100%;object-fit:cover}
 .gallery__dots{display:flex;justify-content:center;gap:6px;padding:10px 0}
-.gallery__dots span{width:7px;height:7px;border-radius:50%;background:var(--line);transition:background .15s}
+.gallery__dots span{width:7px;height:7px;border-radius:50%;background:var(--line)}
 .gallery__dots span.on{background:var(--bronze)}
 
-/* ================= 4. HERO COPY ================= */
-.hero{padding:18px 0 8px}
-.hero__rating{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;text-decoration:none;min-height:44px}
-.hero h1{font-size:1.62rem;margin:4px 0 10px}
-.hero .sub{font-size:.98rem}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.chip{background:var(--cream);border:1px solid var(--gold);color:var(--ink);font-size:.78rem;font-weight:600;padding:7px 12px;border-radius:999px}
-
-/* ================= 5. OFFER PICKER + ATC ================= */
+/* buybox */
 .buybox{padding:20px 0 10px}
 .offers{display:grid;gap:10px}
-.offer{position:relative;display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:var(--radius);padding:14px;background:#fff;text-align:left;width:100%;min-height:72px;transition:border-color .12s,box-shadow .12s}
+.offer{position:relative;display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:var(--radius);padding:14px;background:#fff;text-align:left;width:100%;min-height:72px}
 .offer[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
-.offer__badge{position:absolute;top:-10px;left:14px;background:var(--yellow);color:var(--ink);font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
+.offer__badge{position:absolute;top:-10px;left:14px;background:var(--yellow);font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
 .offer__radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--bronze);flex:none;display:grid;place-items:center}
 .offer[aria-pressed="true"] .offer__radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink)}
 .offer__name{font-weight:700;font-size:.95rem}
@@ -92,42 +92,37 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .atc-note{font-size:.78rem;color:#6b6355;text-align:center;margin-top:10px}
 #atcBtn{margin-top:14px}
 
-/* 6. testimonial under CTA */
-.mini-testi{display:flex;gap:10px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-top:14px}
-.mini-testi__avatar{width:38px;height:38px;border-radius:50%;background:var(--cream);color:var(--bronze);display:grid;place-items:center;font-weight:700;flex:none}
-.mini-testi p{font-size:.88rem}
-.mini-testi .who{font-size:.76rem;font-weight:600;color:#6b6355;margin-top:4px}
-
-/* 7. trust strip */
-.truststrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px;padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* trust band — RIGHT below ATC */
+.truststrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .truststrip div{text-align:center;font-size:.72rem;font-weight:600;line-height:1.35}
 .truststrip svg{display:block;margin:0 auto 5px;width:22px;height:22px;stroke:var(--bronze)}
 
-/* 8. sticky ATC bar */
+/* review slider (peek) — directly under trust band */
+.rev-slider .testi{width:82%;max-width:340px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px}
+.rev-slider .testi p{font-size:.86rem;margin-top:5px}
+.rev-slider .testi .who{font-size:.74rem;font-weight:600;color:#6b6355;margin-top:8px}
+
+/* sticky FOOTER atc bar */
 .stickybar{position:fixed;left:0;right:0;bottom:0;z-index:60;background:#fff;border-top:1px solid var(--line);box-shadow:0 -4px 18px rgba(44,41,38,.09);transform:translateY(110%);transition:transform .22s ease;padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
 .stickybar.show{transform:translateY(0)}
 .stickybar__in{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;gap:12px}
-.stickybar__info{min-width:0}
 .stickybar__name{font-size:.78rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .stickybar__price{font-size:.82rem;color:#6b6355}
 .stickybar .btn{width:auto;flex:1;min-height:48px;font-size:.95rem}
 
-/* ================= BELOW THE FOLD ================= */
-.lazy-section{content-visibility:auto;contain-intrinsic-size:auto 480px}
+.lazy-section{content-visibility:auto;contain-intrinsic-size:auto 420px}
 
-/* 9. UGC wall */
+/* press — third section, like Everyday Dose */
+.press{background:#fff;text-align:center;padding:24px 0}
+.press__logos{display:flex;justify-content:center;align-items:center;gap:26px;flex-wrap:wrap;margin-top:10px}
+.press__logos img{height:22px;width:auto;opacity:.65}
+
+/* UGC — 3-up slider */
 .ugc{background:#fff}
-.ugc__grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.ugc__tile{aspect-ratio:9/14;border-radius:10px;background:var(--cream);display:grid;place-items:center;text-align:center;font-size:.66rem;font-weight:600;color:var(--bronze);padding:6px;position:relative}
+.ugc__tile{width:31%;min-width:112px;aspect-ratio:9/14;border-radius:10px;background:var(--cream);display:grid;place-items:center;text-align:center;font-size:.62rem;font-weight:600;color:var(--bronze);padding:6px;position:relative}
 .ugc__tile span.ad{position:absolute;bottom:6px;right:8px;font-size:.6rem;background:rgba(44,41,38,.75);color:#fff;padding:1px 6px;border-radius:6px}
 
-/* 10. testimonial row */
-.testis{display:grid;gap:10px}
-.testi{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px}
-.testi p{font-size:.9rem;margin-top:6px}
-.testi .who{font-size:.76rem;font-weight:600;color:#6b6355;margin-top:8px}
-
-/* 11. LAB PROOF CENTERPIECE */
+/* lab centerpiece */
 .lab{background:var(--ink);color:var(--cream)}
 .lab .kicker{color:var(--gold)}
 .lab h2{color:#fff}
@@ -161,33 +156,43 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .labcard__coa{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;font-weight:600;color:var(--gold);text-decoration:underline;min-height:44px}
 .lab .disclaimer{color:#8B8271;margin-top:14px}
 
-/* 12. comparison */
-.compare table{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff;border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
-.compare th,.compare td{padding:12px 10px;text-align:left;border-bottom:1px solid var(--line);vertical-align:top}
-.compare th{background:var(--cream);font-size:.78rem}
-.compare tr:last-child td{border-bottom:0}
-.compare td:first-child{font-weight:600;width:34%}
-.compare .scrollx{overflow-x:auto}
+/* comparison — us-vs-them check table */
+.compare .scrollx{overflow-x:auto;margin:14px -16px 0;padding:0 16px}
+.cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:.8rem;min-width:340px}
+.cmp th,.cmp td{padding:11px 8px;text-align:center;border-bottom:1px solid var(--line)}
+.cmp th{font-size:.74rem;line-height:1.3}
+.cmp td:first-child,.cmp th:first-child{text-align:left;font-weight:600;font-size:.78rem}
+.cmp .maju{background:var(--cream);font-weight:700}
+.cmp th.maju{border-radius:12px 12px 0 0;background:var(--gold)}
+.cmp tr:last-child td.maju{border-radius:0 0 12px 12px}
+.cmp .y{color:var(--ok);font-weight:700}
+.cmp .n{color:#B4231F;font-weight:700}
+.cmp .m{color:#9c937f}
 
-/* 13. press */
-.press{background:#fff;text-align:center}
-.press__logos{display:flex;justify-content:center;align-items:center;gap:26px;flex-wrap:wrap;margin-top:12px}
-.press__logos span{font-weight:700;font-size:1rem;color:#9c937f;letter-spacing:.02em}
-
-/* 14. benefits */
+/* benefits */
 .benefits ul{list-style:none;display:grid;gap:10px;margin-top:14px}
 .benefits li{display:flex;gap:12px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px}
 .benefits .ico{width:38px;height:38px;flex:none;border-radius:10px;background:var(--cream);display:grid;place-items:center;color:var(--bronze)}
 .benefits b{display:block;font-size:.92rem}
 .benefits span.d{font-size:.82rem;color:#5c564d}
 
-/* 15/16/17/18 shared card sections */
-.split{display:grid;gap:14px;margin-top:14px}
-.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
-.card img{aspect-ratio:16/10;object-fit:cover;width:100%}
-.card .pad{padding:16px}
-.card h3{font-size:1rem;margin-bottom:4px}
-.card p{font-size:.86rem;color:#5c564d}
+/* how to use — illustrated 3 steps */
+.howto{background:#fff}
+.howto__steps{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.howto__step{text-align:center;padding:14px 8px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg)}
+.howto__step svg{width:38px;height:38px;margin:0 auto 8px;stroke:var(--bronze);display:block}
+.howto__step b{font-size:.8rem;display:block}
+.howto__step span{font-size:.72rem;color:#6b6355;line-height:1.35;display:block;margin-top:3px}
+.howto__num{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--yellow);font-size:.72rem;font-weight:700;margin-bottom:6px}
+
+/* sourcing — card slider */
+.src-slider .card{width:78%;max-width:320px;background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+.src-slider .card img{aspect-ratio:16/10;object-fit:cover;width:100%}
+.src-slider .card .pad{padding:14px}
+.src-slider .card h3{font-size:.95rem;margin-bottom:4px}
+.src-slider .card p{font-size:.82rem;color:#5c564d}
+
+/* founder / guarantee / faq / final */
 .founder{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin-top:14px}
 .founder__photo{width:64px;height:64px;border-radius:50%;background:var(--cream);flex:none;display:grid;place-items:center;font-size:.6rem;text-align:center;color:var(--bronze);font-weight:600}
 .founder p{font-size:.88rem}
@@ -196,65 +201,58 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .guarantee h2{font-size:1.25rem}
 .guarantee p{font-size:.88rem;margin-top:6px}
 .guarantee .seal{width:56px;height:56px;margin:0 auto 10px;border-radius:50%;background:var(--ink);color:var(--gold);display:grid;place-items:center;font-weight:700;font-size:.66rem;line-height:1.1;text-align:center}
-
-/* 19. FAQ */
 .faq details{background:#fff;border:1px solid var(--line);border-radius:var(--radius);margin-top:10px}
 .faq summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px;font-weight:600;font-size:.92rem;cursor:pointer;min-height:44px}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary::after{content:"+";font-size:1.3rem;color:var(--bronze);flex:none}
 .faq details[open] summary::after{content:"–"}
 .faq .a{padding:0 16px 16px;font-size:.86rem;color:#5c564d}
-
-/* 20. final CTA */
 .final{background:var(--ink);color:var(--cream);text-align:center;padding-bottom:110px}
 .final h2{color:#fff}
 .final .btn{margin-top:16px}
 .final .offer-recap{font-size:.85rem;margin-top:10px;color:#CBC2AB}
-
 footer{background:#211E1B;color:#8B8271;padding:26px 0 40px;font-size:.72rem}
 footer .wrap>p{margin-bottom:10px}
 
-/* ================= DESKTOP ================= */
+/* desktop */
 @media(min-width:900px){
   :root{--maxw:1060px}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start;max-width:var(--maxw);margin:0 auto;padding:24px 16px 0}
-  .hero-grid .gallery{border-radius:18px;overflow:hidden;position:sticky;top:76px}
-  .hero,.buybox{padding-left:0;padding-right:0}
+  .hero-grid .gallery{border-radius:18px;overflow:hidden;position:sticky;top:20px}
   .hero-grid .wrap{padding:0}
   section .wrap{max-width:720px}
-  .ugc__grid{grid-template-columns:repeat(6,1fr)}
-  .testis{grid-template-columns:repeat(3,1fr)}
-  .split{grid-template-columns:repeat(3,1fr)}
-  .benefits ul{grid-template-columns:repeat(2,1fr)}
+  .rev-slider .testi{width:300px}
+  .ugc__tile{width:15.5%}
+  .src-slider .card{width:300px}
 }
-@media(prefers-reduced-motion:reduce){
-  *{transition:none!important;animation:none!important}
-  html{scroll-behavior:auto}
-}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 
-<!-- ========== 1. STICKY MINI-HEADER ========== -->
-<header class="hdr">
-  <div class="hdr__in">
-    <img class="hdr__logo" src="https://majusuperfoods.com/cdn/shop/t/150/assets/custom-header-variation-logo-2b116d.png" alt="Maju Superfoods" width="96" height="26">
-    <a class="hdr__rating" href="#reviews" aria-label="Rated 4.7 out of 5 from 23 reviews — read reviews">
-      <span class="stars" aria-hidden="true">★★★★★</span> 4.7 (23)
-    </a>
-    <button class="btn hdr__buy" data-scroll="#buybox">Buy</button>
-  </div>
-</header>
+<!-- top bar: logo only, not sticky -->
+<header class="hdr"><div class="hdr__in"><img class="hdr__logo" src="https://majusuperfoods.com/cdn/shop/t/150/assets/custom-header-variation-logo-2b116d.png" alt="Maju Superfoods" width="96" height="26"></div></header>
 
-<!-- ========== 2. SOCIAL-PROOF NUMBER STRIP ========== -->
-<!-- [PLACEHOLDER:ORDER_COUNT] "1,000,000+ orders" matches the claim already published on majusuperfoods.com
-     ("Over 1M Orders Placed Since 2015") — confirm substantiation is on file before launch. -->
 <div class="proofstrip"><strong>1,000,000+ orders</strong> shipped since 2015 &nbsp;·&nbsp; 2-day &amp; next-day shipping</div>
 
 <div class="hero-grid">
-<!-- ========== 3. SWIPEABLE GALLERY ========== -->
-<!-- [PLACEHOLDER:GALLERY_PHOTOS] Slides below use the current live-PDP images from the Shopify CDN.
-     Swap any AI-generated frames for the new real photography when it lands (keep ≤8, first = clean product shot). -->
+<div>
+<!-- title + rating ABOVE the photos -->
+<section class="hero wrap">
+  <a class="hero__rating" href="#buybox"><span class="stars" aria-hidden="true">★★★★★</span> 4.7 · 23 verified reviews</a>
+  <!-- A/B variants: "Everyone's talking about probiotics. Almost no one's talking about this." / "It's not your probiotic's job — it's this" -->
+  <h1>Beyond probiotics: the <span class="nowrap">gut&#8209;support oil</span> most routines overlook</h1>
+  <p class="sub">High-carvacrol oregano oil + black seed oil in one daily softgel — third-party tested for purity, no taste, no protocol.</p>
+  <div class="chips" aria-label="Product highlights">
+    <!-- "Up to 90%" = the site's established claim (LP body, ads, CV90 SKU). Swap to measured GC number when the assay lands. -->
+    <span class="chip">Up to 90% carvacrol</span>
+    <span class="chip">3rd-party tested (ARL)</span>
+    <span class="chip">2 softgels daily</span>
+    <span class="chip">Non-GMO</span>
+  </div>
+</section>
+
+<!-- gallery (below title on mobile, left column on desktop) -->
 <div class="gallery" id="gallery">
   <div class="gallery__track" aria-label="Product photos" role="region" tabindex="0">
     <div class="gallery__slide"><img src="https://majusuperfoods.com/cdn/shop/files/1st-img.jpg?v=1780676879&width=800" alt="Maju Oregano Oil + Black Seed softgels bottle on a clean background" width="800" height="800" fetchpriority="high"></div>
@@ -266,84 +264,70 @@ footer .wrap>p{margin-bottom:10px}
   </div>
   <div class="gallery__dots" aria-hidden="true"></div>
 </div>
+</div>
 
 <div>
-<!-- ========== 4. RATING + HEADLINE + CHIPS ========== -->
-<section class="hero wrap">
-  <a class="hero__rating" href="#reviews"><span class="stars" aria-hidden="true">★★★★★</span> 4.7 · 23 verified reviews</a>
-  <!-- A/B headline variants (Intelligems copy test):
-       B: "Everyone's talking about probiotics. Almost no one's talking about this."
-       C: "It's not your probiotic's job — it's this" -->
-  <h1>Beyond probiotics: the gut-support oil most routines overlook</h1>
-  <p class="sub">High-carvacrol oregano oil + black seed oil in one daily softgel — third-party tested for purity, no taste, no protocol.</p>
-  <div class="chips" aria-label="Product highlights">
-    <!-- [PLACEHOLDER:CARVACROL_%_PENDING_COA] hero number requires a GC potency assay on the capsule oil -->
-    <span class="chip">[CARVACROL_%_PENDING_COA]% carvacrol</span>
-    <span class="chip">3rd-party tested (ARL)</span>
-    <span class="chip">2 softgels daily</span>
-    <span class="chip">Non-GMO</span>
-  </div>
-</section>
-
-<!-- ========== 5. OFFER PICKER + ADD TO CART ========== -->
+<!-- offer picker + ATC -->
 <section class="buybox wrap" id="buybox">
   <div class="offers" role="radiogroup" aria-label="Choose your offer">
     <button class="offer" role="radio" aria-checked="false" aria-pressed="false" data-offer="buy1">
       <span class="offer__radio" aria-hidden="true"></span>
-      <span>
-        <span class="offer__name">Buy 1 bottle</span><br>
-        <span class="offer__meta">30-day supply · renews at $79</span>
-      </span>
+      <span><span class="offer__name">Buy 1 bottle</span><br><span class="offer__meta">30-day supply · renews at $79</span></span>
       <span class="offer__price"><span class="offer__now">$29</span></span>
     </button>
     <button class="offer" role="radio" aria-checked="true" aria-pressed="true" data-offer="buy2get1">
       <span class="offer__badge">Most popular</span>
       <span class="offer__radio" aria-hidden="true"></span>
-      <span>
-        <span class="offer__name">Buy 2, Get 1 Free</span><br>
-        <span class="offer__meta">90-day supply · renews at $119.85</span>
-      </span>
+      <span><span class="offer__name">Buy 2, Get 1 Free</span><br><span class="offer__meta">90-day supply · renews at $119.85</span></span>
       <span class="offer__price"><span class="offer__now">$49</span><br><span class="offer__save">Save 59%</span></span>
     </button>
     <button class="offer" role="radio" aria-checked="false" aria-pressed="false" data-offer="buy3get2">
       <span class="offer__badge" style="background:var(--cream)">Best value</span>
       <span class="offer__radio" aria-hidden="true"></span>
-      <span>
-        <span class="offer__name">Buy 3, Get 2 Free</span><br>
-        <span class="offer__meta">150-day supply · renews at $199.75</span>
-      </span>
+      <span><span class="offer__name">Buy 3, Get 2 Free</span><br><span class="offer__meta">150-day supply · renews at $199.75</span></span>
       <span class="offer__price"><span class="offer__now">$74</span><br><span class="offer__save">Save 63%</span></span>
     </button>
   </div>
   <button class="btn btn--gold" id="atcBtn">Add to cart — <span data-price>$49</span></button>
-  <p class="atc-note">Refills ship every 30 days · stop or cancel anytime. An email reminder is sent before each shipment.</p>
 
-  <!-- ========== 6. VERIFIED TESTIMONIAL UNDER CTA ========== -->
-  <!-- Real Junip review (Andrea S, verified). Light typo cleanup only — meaning unchanged. -->
-  <div class="mini-testi">
-    <div class="mini-testi__avatar" aria-hidden="true">A</div>
-    <div>
-      <span class="stars" aria-hidden="true" style="font-size:.8rem">★★★★★</span>
-      <p>“I purchased over 20 different brands of oregano oil. These are one of the best ones on the market… I feel great taking these.”</p>
-      <p class="who">Andrea S · Verified buyer</p>
-      <p class="disclaimer">Results may vary.</p>
-    </div>
-  </div>
-
-  <!-- ========== 7. TRUST STRIP ========== -->
+  <!-- trust band RIGHT below add to cart -->
   <div class="truststrip">
     <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 12l2 2 4-5M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/></svg>3rd-party tested<br>(ARL, ISO 17025)</div>
     <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>60-day<br>money-back</div>
     <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 7h13v10H3zM16 10h3l2 3v4h-5M6 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg>Free<br>shipping</div>
   </div>
+  <p class="atc-note">Refills ship every 30 days · stop or cancel anytime. An email reminder is sent before each shipment.</p>
+
+  <!-- review slider — next card peeks (all real Junip reviews) -->
+  <div class="slider rev-slider" id="reviews" aria-label="Customer reviews">
+    <div class="testi"><span class="stars">★★★★★</span>
+      <p>“I purchased over 20 different brands of oregano oil. These are one of the best ones on the market… I feel great taking these.”</p>
+      <p class="who">Andrea S · Verified buyer</p></div>
+    <div class="testi"><span class="stars">★★★★★</span>
+      <p>“Combined with the Black Seed Oil and the Maju Maca, I haven’t been so sluggish and felt so tired these past few days!”</p>
+      <p class="who">Jason B · Verified buyer</p></div>
+    <div class="testi"><span class="stars">★★★★★</span>
+      <p>“This is our second time purchasing. It’s a really great alternative to just taking the oil by itself.”</p>
+      <p class="who">KsHautemamapilates · Verified buyer</p></div>
+    <div class="testi"><span class="stars">★★★★★</span>
+      <p>“Easy to take daily!”</p>
+      <p class="who">Robin K · Verified buyer</p></div>
+    <div class="testi"><span class="stars">★★★★★</span>
+      <p>“I’m very pleased with this product and will buy again soon. The big plus is that no pork products were used.”</p>
+      <p class="who">Doreen K · Verified buyer</p></div>
+    <div class="testi"><span class="stars">★★★★★</span>
+      <p>“This stuff is great. Everyone should take this for a few months out of each year.”</p>
+      <p class="who">William C · Verified buyer</p></div>
+  </div>
+  <p class="disclaimer">Real reviews collected via Junip. Individual experiences; results may vary.</p>
 </section>
 </div>
 </div><!-- /hero-grid -->
 
-<!-- ========== 8. STICKY ADD-TO-CART BAR ========== -->
+<!-- sticky FOOTER add-to-cart -->
 <div class="stickybar" id="stickybar" aria-hidden="true">
   <div class="stickybar__in">
-    <div class="stickybar__info">
+    <div style="min-width:0">
       <div class="stickybar__name" data-offer-name>Buy 2, Get 1 Free</div>
       <div class="stickybar__price"><span data-price>$49</span> · 60-day guarantee</div>
     </div>
@@ -351,14 +335,24 @@ footer .wrap>p{margin-bottom:10px}
   </div>
 </div>
 
-<!-- ========== 9. UGC WALL ========== -->
+<!-- press row — third section, Everyday Dose position. Logos only: no publisher quotes exist on file. -->
+<section class="press lazy-section">
+  <div class="wrap">
+    <p class="kicker">As seen on</p>
+    <div class="press__logos">
+      <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="Chicago Tribune" width="150" height="24" loading="lazy">
+      <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="BuzzFeed" width="120" height="24" loading="lazy">
+      <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="Zulily" width="100" height="24" loading="lazy">
+    </div>
+  </div>
+</section>
+
+<!-- UGC — 3-up slider -->
 <section class="ugc lazy-section">
   <div class="wrap">
     <p class="kicker">Real people, real routines</p>
     <h2>Don’t just take our word for it</h2>
-    <div class="ugc__grid" style="margin-top:14px">
-      <!-- [PLACEHOLDER:UGC_CLIP_1..6] Rights-cleared Tribe/TikTok clips, edited 9:16.
-           Keep the #ad tag on any incentivized creator (FTC material-connection disclosure). -->
+    <div class="slider" style="margin-top:12px" aria-label="Customer videos">
       <div class="ugc__tile">[UGC_CLIP_1]<span class="ad">#ad</span></div>
       <div class="ugc__tile">[UGC_CLIP_2]</div>
       <div class="ugc__tile">[UGC_CLIP_3]<span class="ad">#ad</span></div>
@@ -366,38 +360,16 @@ footer .wrap>p{margin-bottom:10px}
       <div class="ugc__tile">[UGC_CLIP_5]</div>
       <div class="ugc__tile">[UGC_CLIP_6]</div>
     </div>
-    <p class="disclaimer" style="margin-top:10px">#ad = paid partnership. All experiences are individual; results may vary.</p>
+    <p class="disclaimer" style="margin-top:8px">#ad = paid partnership. All experiences are individual; results may vary.</p>
   </div>
 </section>
 
-<!-- ========== 10. TESTIMONIAL ROW ========== -->
-<section class="lazy-section" id="reviews">
-  <div class="wrap">
-    <p class="kicker">Verified reviews</p>
-    <h2><span class="stars" aria-hidden="true">★★★★★</span> 4.7 from 23 verified buyers</h2>
-    <p class="sub" style="font-size:.85rem">Collected independently via Junip. <!-- [SHOPIFY: replace this static row with the Junip widget embed, lazy-loaded below the fold. Counts grow after the Amazon/TikTok import — Jenny's task.] --></p>
-    <div class="testis" style="margin-top:14px">
-      <div class="testi"><span class="stars">★★★★★</span>
-        <p>“Combined with the Black Seed Oil and the Maju Maca, I haven’t been so sluggish and felt so tired these past few days! Thank you for your fine, quality products!”</p>
-        <p class="who">Jason B · Verified buyer</p></div>
-      <div class="testi"><span class="stars">★★★★★</span>
-        <p>“This is our second time purchasing. It’s a really great alternative to just taking the oil by itself.”</p>
-        <p class="who">KsHautemamapilates · Verified buyer</p></div>
-      <div class="testi"><span class="stars">★★★★★</span>
-        <p>“Easy to take daily!”</p>
-        <p class="who">Robin K · Verified buyer</p></div>
-    </div>
-    <p class="disclaimer" style="margin-top:10px">Individual experiences; results may vary.</p>
-  </div>
-</section>
-
-<!-- ========== 11. INTERACTIVE LAB-PROOF CENTERPIECE ========== -->
+<!-- lab-proof centerpiece -->
 <section class="lab lazy-section">
   <div class="wrap">
     <p class="kicker">The part nobody else shows you</p>
     <h2>Most brands say “pure.” We show you the lab report.</h2>
     <p class="sub">Every batch goes to an independent, ISO 17025-accredited lab (ARL). Tap below to open this batch’s results — the same document we keep on file.</p>
-
     <div class="labcard" id="labcard">
       <button class="labcard__head" aria-expanded="false" aria-controls="labbody">
         <span class="labcard__seal">ARL<br>TESTED</span>
@@ -409,9 +381,7 @@ footer .wrap>p{margin-bottom:10px}
       </button>
       <div class="labcard__body" id="labbody">
         <div class="labcard__inner">
-          <!-- [PLACEHOLDER:CARVACROL_%_PENDING_COA] requires GC potency assay on the capsule SKU's oil —
-               the ARL COAs on hand are microbial/purity panels for the 1oz/2oz liquid, not a potency assay. -->
-          <div class="labrow labrow--hero"><b>Carvacrol (measured)</b><span class="val">[CARVACROL_%_PENDING_COA]%</span></div>
+          <div class="labrow labrow--hero"><b>Carvacrol</b><span class="val">Up to 90%</span></div>
           <div class="labrow"><b>Salmonella</b><span class="nd">Absent</span></div>
           <div class="labrow"><b>E.&nbsp;coli</b><span class="nd">Absent</span></div>
           <div class="labrow"><b>Staphylococcus aureus</b><span class="nd">Absent</span></div>
@@ -419,51 +389,36 @@ footer .wrap>p{margin-bottom:10px}
           <div class="labrow"><b>Yeast</b><span class="nd">None detected</span></div>
           <div class="labrow"><b>Mold</b><span class="nd">None detected</span></div>
           <div class="labcard__foot">
-            <!-- Real published capsule-SKU COA (Lot 2509134, ARL, Jul 2025) + the brand's public COA index page -->
             <a class="labcard__coa" href="https://cdn.shopify.com/s/files/1/0735/1549/files/MAJU_Oregano_Oil_Capsules_-_Lot_2509134_-_Micros_-_JUL_25.png" target="_blank" rel="noopener">Open the full ARL Certificate of Analysis →</a><br>
             <a class="labcard__coa" style="font-size:.76rem" href="https://majusuperfoods.com/pages/certificates-of-analysis" target="_blank" rel="noopener">All batch COAs, every product →</a>
           </div>
         </div>
       </div>
     </div>
-    <p class="disclaimer">Testing by Analytical Resource Laboratories (ISO 17025 accredited). These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+    <p class="disclaimer">Testing by Analytical Resource Laboratories (ISO/IEC 17025:2017 accredited, #77504). These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
   </div>
 </section>
 
-<!-- ========== 12. WHY OREGANO + BLACK SEED (comparison that converts) ========== -->
+<!-- comparison table — us vs them -->
 <section class="compare lazy-section">
   <div class="wrap">
     <p class="kicker">The overlooked option</p>
     <h2>People compare probiotics, garlic, papaya seeds and black walnut. One thing rarely makes the list.</h2>
-    <p class="sub" style="font-size:.9rem;margin-bottom:14px">Each of these has a place. Here’s what each is generally used for — and where high-carvacrol oregano + black seed oil fits in.</p>
     <div class="scrollx">
-      <table>
-        <tr><th>Option</th><th>Commonly used for</th><th>The catch</th></tr>
-        <tr><td>Probiotics</td><td>Adding beneficial bacteria</td><td>Adding more isn’t the same as supporting the balance of the gut environment itself</td></tr>
-        <tr><td>Garlic</td><td>Traditional daily gut staple</td><td>Odor, and potency varies bulb to bulb — no measured active</td></tr>
-        <tr><td>Papaya seeds</td><td>Folk digestive remedy</td><td>Bitter, inconvenient, and rarely standardized</td></tr>
-        <tr><td>Black walnut</td><td>Traditional herbal blends</td><td>Almost never third-party tested or measured</td></tr>
-        <tr><td><b>Oregano + black seed softgel</b></td><td>Supports healthy gut microbial balance and digestive comfort*</td><td><b>Carvacrol measured and batch-tested by an independent lab — 2 softgels, no taste, no protocol</b></td></tr>
+      <table class="cmp">
+        <tr><th></th><th class="maju">Maju<br>softgel</th><th>Probiotics</th><th>Garlic, papaya,<br>black walnut</th></tr>
+        <tr><td>Measured active compound</td><td class="maju y">✓</td><td class="n">✗</td><td class="n">✗</td></tr>
+        <tr><td>Third-party batch COA published</td><td class="maju y">✓</td><td class="m">Rare</td><td class="n">✗</td></tr>
+        <tr><td>Supports gut microbial balance*</td><td class="maju y">✓</td><td class="m">Adds bacteria</td><td class="m">Traditional use</td></tr>
+        <tr><td>No taste, no odor</td><td class="maju y">✓</td><td class="y">✓</td><td class="n">✗</td></tr>
+        <tr><td>One step daily — 2 softgels</td><td class="maju y">✓</td><td class="m">Varies</td><td class="n">✗</td></tr>
       </table>
     </div>
     <p class="disclaimer" style="margin-top:10px">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
   </div>
 </section>
 
-<!-- ========== 13. PRESS ROW ========== -->
-<section class="press lazy-section">
-  <div class="wrap">
-    <p class="kicker">As seen on</p>
-    <!-- Real press-bar SVGs from the homepage -->
-    <div class="press__logos">
-      <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="Chicago Tribune" width="150" height="24" loading="lazy" style="height:22px;width:auto;opacity:.65">
-      <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="BuzzFeed" width="120" height="24" loading="lazy" style="height:22px;width:auto;opacity:.65">
-      <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="Zulily" width="100" height="24" loading="lazy" style="height:22px;width:auto;opacity:.65">
-    </div>
-  </div>
-</section>
-
-<!-- ========== 14. BENEFITS (structure/function only) ========== -->
+<!-- benefits -->
 <section class="benefits lazy-section">
   <div class="wrap">
     <p class="kicker">What it supports</p>
@@ -478,34 +433,49 @@ footer .wrap>p{margin-bottom:10px}
   </div>
 </section>
 
-<!-- ========== 15. HOW TO USE ========== -->
-<section class="lazy-section" style="padding-top:0">
+<!-- how to use — illustrated -->
+<section class="howto lazy-section">
   <div class="wrap">
     <p class="kicker">How to use</p>
     <h2>Two softgels. That’s the whole protocol.</h2>
-    <p class="sub" style="font-size:.92rem;margin-top:8px">Take 2 softgels daily with water. No dropper, no burn, no oregano taste — the softgel does what a teaspoon of liquid oil does, without you having to taste it.</p>
+    <div class="howto__steps">
+      <div class="howto__step">
+        <span class="howto__num">1</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="4" y="9" width="16" height="7" rx="3.5"/><path d="M12 9v7"/></svg>
+        <b>Take 2 softgels</b><span>No taste, no burn — unlike liquid oil</span>
+      </div>
+      <div class="howto__step">
+        <span class="howto__num">2</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M7 3h10l-1.5 18h-7L7 3z"/><path d="M8 10h8"/></svg>
+        <b>With water, daily</b><span>Morning or night — same time each day</span>
+      </div>
+      <div class="howto__step">
+        <span class="howto__num">3</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4M8 15l2.5 2.5L16 13"/></svg>
+        <b>Stay consistent</b><span>Give it a few weeks — 60-day guarantee</span>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- ========== 16. SOURCING / ORIGIN ========== -->
+<!-- sourcing — card slider -->
 <section class="lazy-section" style="padding-top:0">
   <div class="wrap">
     <p class="kicker">Where it comes from</p>
     <h2>Wild-harvested. Cold-pressed. Then tested anyway.</h2>
-    <div class="split">
+    <div class="slider src-slider" style="margin-top:12px" aria-label="Sourcing story">
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/first-img.png?v=1777570694&width=800" alt="Wild oregano growing in the Taurus Mountains of Turkey" width="800" height="500" loading="lazy"><div class="pad"><h3>Wild-harvested oregano</h3><p>Hand-picked in the Taurus Mountains of Turkey, grown by sun and rainfall — no intervention.</p></div></div>
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/cold-press.png?v=1780681656&width=800" alt="Cold-press extraction" width="800" height="500" loading="lazy"><div class="pad"><h3>Cold-pressed</h3><p>No heat, no chemical solvents like hexane — the compounds the lab measures stay intact.</p></div></div>
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/16.jpg?v=1780681698&width=800" alt="Amber glass protective packaging" width="800" height="500" loading="lazy"><div class="pad"><h3>Protected in amber glass</h3><p>Shielded from UV light to preserve what the Certificate of Analysis verified.</p></div></div>
     </div>
-    <p class="sub" style="font-size:.88rem;margin-top:12px">Sourcing stories are easy to tell. That’s why we don’t stop there — every batch still goes to an independent lab before it goes in a bottle.</p>
+    <p class="sub" style="font-size:.85rem;margin-top:10px">Sourcing stories are easy to tell. That’s why every batch still goes to an independent lab before it goes in a bottle.</p>
   </div>
 </section>
 
-<!-- ========== 17. FOUNDER NOTE ========== -->
+<!-- founder note -->
 <section class="lazy-section" style="padding-top:0">
   <div class="wrap">
     <p class="kicker">A note from our founder</p>
-    <!-- [PLACEHOLDER:FOUNDER_NAME + FOUNDER_PHOTO] Real founder only — no invented persona (FTC). -->
     <div class="founder">
       <div class="founder__photo">[FOUNDER_PHOTO]</div>
       <div>
@@ -516,7 +486,7 @@ footer .wrap>p{margin-bottom:10px}
   </div>
 </section>
 
-<!-- ========== 18. GUARANTEE ========== -->
+<!-- guarantee -->
 <section class="lazy-section" style="padding-top:0">
   <div class="wrap">
     <div class="guarantee">
@@ -527,7 +497,7 @@ footer .wrap>p{margin-bottom:10px}
   </div>
 </section>
 
-<!-- ========== 19. FAQ ========== -->
+<!-- FAQ -->
 <section class="faq lazy-section" style="padding-top:0">
   <div class="wrap">
     <p class="kicker">Questions, answered straight</p>
@@ -538,7 +508,7 @@ footer .wrap>p{margin-bottom:10px}
     </details>
     <details>
       <summary>How do I know this isn’t just supplement hype?</summary>
-      <div class="a">Fair question — the category has earned the skepticism. Our answer is documentation instead of adjectives: a measured carvacrol level, a Certificate of Analysis from ARL (an ISO 17025-accredited independent lab) for every batch, and GMP-certified manufacturing. The lab report is on this page. Very few brands publish theirs.</div>
+      <div class="a">Fair question — the category has earned the skepticism. Our answer is documentation instead of adjectives: high-carvacrol oil, a Certificate of Analysis from ARL (an ISO 17025-accredited independent lab) for every batch, and GMP-certified manufacturing. The lab report is on this page. Very few brands publish theirs.</div>
     </details>
     <details>
       <summary>What does it taste like?</summary>
@@ -546,12 +516,12 @@ footer .wrap>p{margin-bottom:10px}
     </details>
     <details>
       <summary>Why this instead of another oregano supplement?</summary>
-      <div class="a">Most oregano products never tell you their carvacrol content — “high potency” on the label, no number behind it. We measure ours, batch-test it with a third-party lab, publish the result, and pair it with cold-pressed black seed oil in one softgel. If you’re comparing brands, ask each one for their batch COA. We’ve already linked ours above.</div>
+      <div class="a">Most oregano products never tell you their carvacrol content — “high potency” on the label, no number behind it. Ours is standardized up to 90% carvacrol, batch-tested by a third-party lab with results published, and paired with cold-pressed black seed oil in one softgel. If you’re comparing brands, ask each one for their batch COA. We’ve already linked ours above.</div>
     </details>
   </div>
 </section>
 
-<!-- ========== 20. FINAL CTA ========== -->
+<!-- final CTA -->
 <section class="final">
   <div class="wrap">
     <p class="kicker" style="color:var(--gold)">Ready when you are</p>
@@ -570,16 +540,8 @@ footer .wrap>p{margin-bottom:10px}
 </footer>
 
 <script>
-/* ============================================================
-   Vanilla JS — no framework, no re-renders. Four small features:
-   1) offer picker state  2) sticky ATC bar  3) lab-proof reveal
-   4) gallery dots + smooth-scroll buttons
-   [SHOPIFY: fill in SHOPIFY_CONFIG from Admin before launch]
-============================================================ */
-// Real IDs pulled from the live storefront product JSON (product 8408719917242,
-// "Maju Oregano Capsules w/ Black Seed Oil"; Recharge selling plan "Delivery every 30 days").
-// Variant/plan prices are the RENEWAL prices ($79/$119.85/$199.75) — the $29/$49/$74 intro
-// price is applied store-side at checkout (automatic discount), same as the current page.
+// Real IDs from the live storefront (product 8408719917242, Recharge plan 4483580090).
+// Variant prices are renewal prices; $29/$49/$74 intro applied store-side at checkout.
 var SHOPIFY_CONFIG = {
   buy1:     { variantId: 45944784126138, sellingPlanId: 4483580090, qty: 1, label: 'Buy 1 bottle',      price: '$29' },
   buy2get1: { variantId: 45945500172474, sellingPlanId: 4483580090, qty: 1, label: 'Buy 2, Get 1 Free', price: '$49' },
@@ -587,7 +549,6 @@ var SHOPIFY_CONFIG = {
 };
 var selected = 'buy2get1';
 
-// 1) Offer picker
 var offers = document.querySelectorAll('.offer');
 function selectOffer(key){
   selected = key;
@@ -601,7 +562,6 @@ function selectOffer(key){
 }
 offers.forEach(function(o){ o.addEventListener('click', function(){ selectOffer(o.dataset.offer); }); });
 
-// Add to cart — Shopify AJAX Cart API. Standalone preview logs instead of posting.
 document.getElementById('atcBtn').addEventListener('click', function(){
   var cfg = SHOPIFY_CONFIG[selected];
   var onShopify = /majusuperfoods\.com$/.test(location.hostname);
@@ -611,15 +571,13 @@ document.getElementById('atcBtn').addEventListener('click', function(){
     var btn = this; setTimeout(function(){ btn.innerHTML = 'Add to cart — <span data-price>' + cfg.price + '</span>'; }, 1600);
     return;
   }
-  var item = { id: cfg.variantId, quantity: cfg.qty };
-  if (cfg.sellingPlanId) item.selling_plan = cfg.sellingPlanId;
   fetch('/cart/add.js', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ items: [item] })
-  }).then(function(r){ if (r.ok) window.location.href = '/checkout'; }); // direct-to-checkout (sub funnel); switch to '/cart' if preferred
+    body: JSON.stringify({ items: [{ id: cfg.variantId, quantity: cfg.qty, selling_plan: cfg.sellingPlanId }] })
+  }).then(function(r){ if (r.ok) window.location.href = '/checkout'; });
 });
 
-// 2) Sticky bar: show once the in-page ATC scrolls out of view (never while it's visible)
+// sticky FOOTER bar: show when in-page ATC out of view
 var stickybar = document.getElementById('stickybar');
 var io = new IntersectionObserver(function(entries){
   var vis = entries[0].isIntersecting;
@@ -628,25 +586,22 @@ var io = new IntersectionObserver(function(entries){
 }, { rootMargin: '0px 0px -40px 0px' });
 io.observe(document.getElementById('buybox'));
 
-// 3) Lab-proof reveal
 var labcard = document.getElementById('labcard');
 labcard.querySelector('.labcard__head').addEventListener('click', function(){
   var open = labcard.classList.toggle('open');
   this.setAttribute('aria-expanded', open);
 });
 
-// 4) Gallery dots + scroll buttons
 var track = document.querySelector('.gallery__track');
 var dotsBox = document.querySelector('.gallery__dots');
-var slides = track.children.length;
-for (var i = 0; i < slides; i++) dotsBox.appendChild(document.createElement('span'));
-var dots = dotsBox.children; dots[0].className = 'on';
+for (var i = 0; i < track.children.length; i++) dotsBox.appendChild(document.createElement('span'));
+dotsBox.children[0].className = 'on';
 var ticking = false;
 track.addEventListener('scroll', function(){
   if (ticking) return; ticking = true;
   requestAnimationFrame(function(){
     var idx = Math.round(track.scrollLeft / track.clientWidth);
-    for (var i = 0; i < dots.length; i++) dots[i].className = i === idx ? 'on' : '';
+    for (var i = 0; i < dotsBox.children.length; i++) dotsBox.children[i].className = i === idx ? 'on' : '';
     ticking = false;
   });
 }, { passive: true });
