@@ -23,7 +23,7 @@
   --gold:#E9C969; --cream:#EFDA98; --ink:#2C2926; --yellow:#FFCE02;
   --amber:#FEBE12; --bronze:#AC8D3E; --white:#fff;
   --bg:#FDFBF5; --line:#EAE2CE; --ok:#1E7B4D;
-  --radius:14px; --maxw:640px;
+  --radius:14px; --maxw:640px; --gutter:20px; /* one alignment line for everything */
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
@@ -31,7 +31,7 @@ body{font-family:'Poppins',system-ui,sans-serif;font-size:16px;line-height:1.55;
 img{display:block;max-width:100%;height:auto}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:inherit}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 16px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
 section{padding:32px 0}
 h1,h2,h3{line-height:1.22;font-weight:700}
 h2{font-size:1.45rem;margin-bottom:8px}
@@ -49,7 +49,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .nowrap{white-space:nowrap}
 
 /* shared horizontal slider w/ peek */
-.slider{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px 16px 8px;margin:0 -16px}
+.slider{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding:0 var(--gutter);-webkit-overflow-scrolling:touch;scrollbar-width:none;padding:4px var(--gutter) 8px;margin:0 calc(-1*var(--gutter))}
 .slider::-webkit-scrollbar{display:none}
 .slider>*{scroll-snap-align:start;flex:none}
 
@@ -58,11 +58,11 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .proofstrip strong{color:var(--yellow)}
 
 /* ===== title block (below gallery, ED order) ===== */
-.hero{padding:14px 0 6px}
+.hero{padding-top:10px;padding-bottom:4px} /* vertical only — .wrap on same element keeps the gutter */
 .hero__rating{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:600;text-decoration:none;min-height:44px}
 .hero h1{font-size:1.5rem;margin:0 0 2px;text-wrap:balance}
 .hero .sub{font-size:.95rem}
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .chip{background:var(--cream);border:1px solid var(--gold);font-size:.78rem;font-weight:600;padding:7px 12px;border-radius:999px}
 
 /* gallery */
@@ -72,21 +72,21 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .gallery__slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:1/1;background:#F6F1E4}
 .gallery__slide img{width:100%;height:100%;object-fit:cover}
 /* Grüns-style thumbnail tiles under the main photo (no dots, no arrows) */
-.gallery__thumbs{display:flex;gap:8px;padding:10px 16px 4px;overflow-x:auto;scrollbar-width:none}
+.gallery__thumbs{display:flex;gap:8px;padding:10px var(--gutter) 2px;overflow-x:auto;scrollbar-width:none}
 .gallery__thumbs::-webkit-scrollbar{display:none}
 .gallery__thumbs button{flex:none;width:56px;height:56px;border-radius:10px;overflow:hidden;border:2px solid var(--line);padding:0;background:#F6F1E4}
 .gallery__thumbs button.on{border-color:var(--bronze)}
 .gallery__thumbs img{width:100%;height:100%;object-fit:cover}
 
 /* View Nutrition Label (Grüns pattern) */
-.label-btn{display:flex;align-items:center;justify-content:center;width:calc(100% - 32px);margin:8px 16px 0;min-height:50px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;font-weight:600;font-size:.95rem}
+.label-btn{display:flex;align-items:center;justify-content:center;width:calc(100% - 2*var(--gutter));margin:6px var(--gutter) 0;min-height:50px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;font-weight:600;font-size:.95rem}
 .label-modal{position:fixed;inset:0;z-index:80;background:rgba(33,30,27,.82);display:none;align-items:center;justify-content:center;padding:20px}
 .label-modal.open{display:flex}
 .label-modal img{max-height:86vh;width:auto;max-width:100%;border-radius:12px;background:#fff}
 .label-modal__close{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--ink);font-size:1.3rem;font-weight:700;display:grid;place-items:center}
 
 /* Grüns-style inline lab card (under gallery) */
-.labchip{display:flex;align-items:center;gap:12px;width:calc(100% - 32px);margin:10px 16px 4px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;text-align:left;cursor:pointer}
+.labchip{display:flex;align-items:center;gap:12px;width:calc(100% - 2*var(--gutter));margin:8px var(--gutter) 2px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;text-align:left;cursor:pointer}
 .labchip__badge{width:38px;height:38px;flex:none;border-radius:50%;background:var(--cream);border:1.5px solid var(--gold);display:grid;place-items:center}
 .labchip__badge svg{width:20px;height:20px;stroke:var(--bronze)}
 .labchip .l1{font-size:.85rem;font-weight:600}
@@ -94,7 +94,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .labchip .l2 span{color:var(--ink)}
 
 /* buybox */
-.buybox{padding:20px 0 10px}
+.buybox{padding-top:16px;padding-bottom:10px}
 .offers{display:grid;gap:10px}
 .offer{position:relative;display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:var(--radius);padding:14px;background:#fff;text-align:left;width:100%;min-height:72px}
 .offer[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
@@ -182,7 +182,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .lab .disclaimer{color:#8B8271;margin-top:14px}
 
 /* comparison — us-vs-them check table */
-.compare .scrollx{overflow-x:auto;margin:14px -16px 0;padding:0 16px}
+.compare .scrollx{overflow-x:auto;margin:14px calc(-1*var(--gutter)) 0;padding:0 var(--gutter)}
 .cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:.8rem;min-width:340px}
 .cmp th,.cmp td{padding:11px 8px;text-align:center;border-bottom:1px solid var(--line)}
 .cmp th{font-size:.74rem;line-height:1.3}
@@ -396,8 +396,8 @@ footer .wrap>p{margin-bottom:10px}
   <p class="kicker">As seen on</p>
   <div class="press__viewport" aria-label="Press mentions">
     <div class="press__track">
-      <!-- set 1 · ⚠ NYT + NBC are wireframe placeholders — NOT substantiated for Maju anywhere.
-           LAUNCH GATE: client provides real coverage links or these two come out. -->
+      <!-- NBC: substantiated — the brand's own cv90 listing image says "MAJU HAS BEEN SEEN ON Chicago Tribune | BuzzFeed | NBC".
+           ⚠ NYT: still NOT substantiated anywhere. LAUNCH GATE: real coverage link or it comes out. -->
       <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="Chicago Tribune" width="150" height="24" loading="lazy">
       <span class="wordmark wordmark--serif">The New York Times</span>
       <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="BuzzFeed" width="120" height="24" loading="lazy">
@@ -466,6 +466,21 @@ footer .wrap>p{margin-bottom:10px}
   </div>
 </section>
 
+<!-- sourcing — card slider (moved above the comparison per Bryce) -->
+<section class="lazy-section" style="padding-top:0">
+  <div class="wrap">
+    <p class="kicker">Where it comes from</p>
+    <h2>Wild-harvested. Cold-pressed. Lab-tested every batch.</h2>
+    <div class="slider src-slider" style="margin-top:12px" aria-label="Sourcing story">
+      <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/first-img.png?v=1777570694&width=800" alt="Wild oregano growing in the Taurus Mountains of Turkey" width="800" height="500" loading="lazy"><div class="pad"><h3>Wild-harvested oregano</h3><p>Hand-picked in the Taurus Mountains of Turkey, grown by sun and rainfall with no intervention.</p></div></div>
+      <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/cold-press.png?v=1780681656&width=800" alt="Cold-press extraction" width="800" height="500" loading="lazy"><div class="pad"><h3>Cold-pressed</h3><p>No heat and no chemical solvents like hexane, so the compounds the lab measures stay intact.</p></div></div>
+      <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/16.jpg?v=1780681698&width=800" alt="Amber glass protective packaging" width="800" height="500" loading="lazy"><div class="pad"><h3>Protected in amber glass</h3><p>Shielded from UV light to preserve what the Certificate of Analysis verified.</p></div></div>
+    </div>
+    <p class="sub" style="font-size:.85rem;margin-top:10px">Sourcing stories are easy to tell. That’s why every batch still goes to an independent lab before it goes in a bottle.</p>
+    <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
+  </div>
+</section>
+
 <!-- comparison table — us vs them -->
 <section class="compare lazy-section">
   <div class="wrap">
@@ -529,30 +544,16 @@ footer .wrap>p{margin-bottom:10px}
   </div>
 </section>
 
-<!-- sourcing — card slider -->
-<section class="lazy-section" style="padding-top:0">
-  <div class="wrap">
-    <p class="kicker">Where it comes from</p>
-    <h2>Wild-harvested. Cold-pressed. Lab-tested every batch.</h2>
-    <div class="slider src-slider" style="margin-top:12px" aria-label="Sourcing story">
-      <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/first-img.png?v=1777570694&width=800" alt="Wild oregano growing in the Taurus Mountains of Turkey" width="800" height="500" loading="lazy"><div class="pad"><h3>Wild-harvested oregano</h3><p>Hand-picked in the Taurus Mountains of Turkey, grown by sun and rainfall with no intervention.</p></div></div>
-      <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/cold-press.png?v=1780681656&width=800" alt="Cold-press extraction" width="800" height="500" loading="lazy"><div class="pad"><h3>Cold-pressed</h3><p>No heat and no chemical solvents like hexane, so the compounds the lab measures stay intact.</p></div></div>
-      <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/16.jpg?v=1780681698&width=800" alt="Amber glass protective packaging" width="800" height="500" loading="lazy"><div class="pad"><h3>Protected in amber glass</h3><p>Shielded from UV light to preserve what the Certificate of Analysis verified.</p></div></div>
-    </div>
-    <p class="sub" style="font-size:.85rem;margin-top:10px">Sourcing stories are easy to tell. That’s why every batch still goes to an independent lab before it goes in a bottle.</p>
-    <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
-  </div>
-</section>
 
 <!-- founder note -->
 <section class="lazy-section" style="padding-top:0">
   <div class="wrap">
     <p class="kicker">A note from our founder</p>
     <div class="founder">
-      <div class="founder__photo">[FOUNDER_PHOTO]</div>
+      <div class="founder__photo"><img src="founder-ryan.jpg" alt="Ryan Rigney" width="64" height="64" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
       <div>
         <p>“The supplement aisle runs on adjectives: ‘pure,’ ‘potent,’ ‘premium.’ We decided years ago that we’d rather pay a lab than write another adjective. That’s why every single batch is tested by an independent lab before it ships, and why we publish the results. If a number can’t back the claim, we don’t make the claim.”</p>
-        <p class="who">[FOUNDER_NAME], Founder of Maju Superfoods</p>
+        <p class="who">Ryan Rigney, Founder of Maju Superfoods</p>
       </div>
     </div>
   </div>
@@ -608,7 +609,8 @@ footer .wrap>p{margin-bottom:10px}
 <!-- nutrition label modal -->
 <div class="label-modal" id="labelModal" role="dialog" aria-modal="true" aria-label="Nutrition label">
   <button class="label-modal__close" aria-label="Close">✕</button>
-  <img src="https://majusuperfoods.com/cdn/shop/files/3rd-img.jpg?v=1780676879&width=1200" alt="Supplement facts label" width="1200" height="1200" loading="lazy">
+  <!-- Brand's supplement-facts artwork from the cv90 listing (same panel: 300mg oregano / 200mg black seed) -->
+  <img src="https://cdn.shopify.com/s/files/1/0735/1549/files/06_1.jpg?v=1782189923&width=1200" alt="Supplement facts: 2 softgels per serving, Oil of Oregano 300mg, Black Seed Oil 200mg" width="1200" height="1200" loading="lazy">
 </div>
 
 <!-- lab report modal: the real ARL COA photo (Lot 2509134), quick scan + top-right close -->
