@@ -71,15 +71,25 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .gallery__track::-webkit-scrollbar{display:none}
 .gallery__slide{flex:0 0 100%;scroll-snap-align:center;aspect-ratio:1/1;background:#F6F1E4}
 .gallery__slide img{width:100%;height:100%;object-fit:cover}
-.gallery__dots{display:flex;justify-content:center;gap:6px;padding:10px 0}
-.gallery__dots span{width:7px;height:7px;border-radius:50%;background:var(--line)}
-.gallery__dots span.on{background:var(--bronze)}
+/* Grüns-style thumbnail tiles under the main photo (no dots, no arrows) */
+.gallery__thumbs{display:flex;gap:8px;padding:10px 16px 4px;overflow-x:auto;scrollbar-width:none}
+.gallery__thumbs::-webkit-scrollbar{display:none}
+.gallery__thumbs button{flex:none;width:56px;height:56px;border-radius:10px;overflow:hidden;border:2px solid var(--line);padding:0;background:#F6F1E4}
+.gallery__thumbs button.on{border-color:var(--bronze)}
+.gallery__thumbs img{width:100%;height:100%;object-fit:cover}
+
+/* View Nutrition Label (Grüns pattern) */
+.label-btn{display:flex;align-items:center;justify-content:center;width:calc(100% - 32px);margin:8px 16px 0;min-height:50px;border:1.5px solid var(--ink);border-radius:999px;background:#fff;font-weight:600;font-size:.95rem}
+.label-modal{position:fixed;inset:0;z-index:80;background:rgba(33,30,27,.82);display:none;align-items:center;justify-content:center;padding:20px}
+.label-modal.open{display:flex}
+.label-modal img{max-height:86vh;width:auto;max-width:100%;border-radius:12px;background:#fff}
+.label-modal__close{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--ink);font-size:1.3rem;font-weight:700;display:grid;place-items:center}
 
 /* Grüns-style inline lab card (under gallery) */
-.labchip{display:flex;align-items:center;gap:12px;width:calc(100% - 32px);margin:6px 16px 4px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;text-align:left;cursor:pointer}
-.labchip svg{width:30px;height:30px;flex:none;stroke:var(--bronze)}
-.labchip .l1{font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.labchip .datechip{background:var(--cream);border:1px solid var(--gold);font-size:.68rem;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:6px}
+.labchip{display:flex;align-items:center;gap:12px;width:calc(100% - 32px);margin:10px 16px 4px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;text-align:left;cursor:pointer}
+.labchip__badge{width:38px;height:38px;flex:none;border-radius:50%;background:var(--cream);border:1.5px solid var(--gold);display:grid;place-items:center}
+.labchip__badge svg{width:20px;height:20px;stroke:var(--bronze)}
+.labchip .l1{font-size:.85rem;font-weight:600}
 .labchip .l2{font-size:.82rem;font-weight:600;color:#5c564d;margin-top:2px}
 .labchip .l2 span{color:var(--ink)}
 
@@ -267,14 +277,19 @@ footer .wrap>p{margin-bottom:10px}
     <div class="gallery__slide"><img src="https://majusuperfoods.com/cdn/shop/files/5th-img.jpg?v=1780676879&width=800" alt="Daily use, two softgels with water" width="800" height="800" loading="lazy"></div>
     <div class="gallery__slide"><img src="https://majusuperfoods.com/cdn/shop/files/6th-img.jpg?v=1780676879&width=800" alt="Wild oregano sourcing in the Taurus Mountains" width="800" height="800" loading="lazy"></div>
   </div>
-  <div class="gallery__dots" aria-hidden="true"></div>
+  <div class="gallery__thumbs" aria-label="Photo thumbnails"></div>
 </div>
 
-<!-- Grüns-style lab card (hard-coded): sits under the gallery, opens the full lab section -->
+<!-- Grüns pattern: View Nutrition Label opens the supplement facts image -->
+<button class="label-btn" id="labelBtn">View Nutrition Label</button>
+
+<!-- Grüns-style lab card: opens the full lab section. No date chip (no current-dated report on hand). -->
 <button class="labchip" id="labchip" aria-controls="labbody">
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="M3 12l4 4L15 8"/><path d="M9 12l4 4L21 8"/></svg>
+  <span class="labchip__badge" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.4 2.4L15.5 9.5"/></svg>
+  </span>
   <span>
-    <span class="l1">Tested by ARL Labs in <span class="datechip">SEP 2025</span></span>
+    <span class="l1">Tested by ARL Labs</span>
     <span class="l2"><span>8 substances tested for quality</span> &rarr;</span>
   </span>
 </button>
@@ -583,6 +598,12 @@ footer .wrap>p{margin-bottom:10px}
   </div>
 </section>
 
+<!-- nutrition label modal -->
+<div class="label-modal" id="labelModal" role="dialog" aria-modal="true" aria-label="Nutrition label">
+  <button class="label-modal__close" aria-label="Close">✕</button>
+  <img src="https://majusuperfoods.com/cdn/shop/files/3rd-img.jpg?v=1780676879&width=1200" alt="Supplement facts label" width="1200" height="1200" loading="lazy">
+</div>
+
 <footer>
   <div class="wrap">
     <p><b>FDA disclaimer:</b> These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
@@ -653,19 +674,34 @@ document.getElementById('labchip').addEventListener('click', function(){
   labcard.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
+// Grüns-style thumbnails: built from the slides, click jumps, active syncs on swipe
 var track = document.querySelector('.gallery__track');
-var dotsBox = document.querySelector('.gallery__dots');
-for (var i = 0; i < track.children.length; i++) dotsBox.appendChild(document.createElement('span'));
-dotsBox.children[0].className = 'on';
+var thumbsBox = document.querySelector('.gallery__thumbs');
+[].forEach.call(track.children, function(slide, i){
+  var b = document.createElement('button');
+  b.setAttribute('aria-label', 'Photo ' + (i + 1));
+  var im = slide.querySelector('img');
+  var t = document.createElement('img');
+  t.src = im.src.replace('width=800', 'width=160'); t.alt = ''; t.width = 56; t.height = 56; t.loading = 'lazy';
+  b.appendChild(t);
+  b.addEventListener('click', function(){ track.scrollTo({ left: track.clientWidth * i, behavior: 'smooth' }); });
+  thumbsBox.appendChild(b);
+});
+thumbsBox.children[0].className = 'on';
 var ticking = false;
 track.addEventListener('scroll', function(){
   if (ticking) return; ticking = true;
   requestAnimationFrame(function(){
     var idx = Math.round(track.scrollLeft / track.clientWidth);
-    for (var i = 0; i < dotsBox.children.length; i++) dotsBox.children[i].className = i === idx ? 'on' : '';
+    for (var i = 0; i < thumbsBox.children.length; i++) thumbsBox.children[i].className = i === idx ? 'on' : '';
     ticking = false;
   });
 }, { passive: true });
+
+// nutrition label modal
+var labelModal = document.getElementById('labelModal');
+document.getElementById('labelBtn').addEventListener('click', function(){ labelModal.classList.add('open'); });
+labelModal.addEventListener('click', function(){ labelModal.classList.remove('open'); });
 
 document.querySelectorAll('[data-scroll]').forEach(function(b){
   b.addEventListener('click', function(){
