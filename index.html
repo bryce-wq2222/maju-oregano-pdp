@@ -103,7 +103,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .offer__name{font-weight:700;font-size:.95rem}
 .offer__pill{background:#E4F3E9;color:var(--ok);font-size:.64rem;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;font-style:normal;white-space:nowrap;vertical-align:1px}
 .offer__meta{font-size:.75rem;color:#6b6355}
-.offer__meta b{color:var(--ok)}
+.offer__meta b{color:var(--ok);white-space:nowrap}
 .offer__price{margin-left:auto;text-align:right;flex:none}
 .offer__now{font-weight:700;font-size:1.05rem}
 .offer__was{color:#9c937f;font-weight:400;font-size:.82rem;text-decoration:line-through;margin-left:4px}
@@ -354,8 +354,7 @@ footer .wrap>p{margin-bottom:10px}
     <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>60-day<br>money-back</div>
     <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 7h13v10H3zM16 10h3l2 3v4h-5M6 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg>Free<br>shipping</div>
   </div>
-  <!-- Renewal disclosure (Grüns approach): one clear line, synced to the selected tier -->
-  <p class="atc-note">Renews at <span data-renew>$119.85</span> every 30 days · cancel anytime. Email reminder before each shipment.</p>
+  <p class="atc-note">Cancel anytime · email reminder before each shipment.</p>
 
   <!-- review slider — next card peeks (all real Junip reviews) -->
   <div class="slider rev-slider" id="reviews" aria-label="Customer reviews">
@@ -389,8 +388,8 @@ footer .wrap>p{margin-bottom:10px}
       <div class="stickybar__name" data-offer-name>Buy 2, Get 1 Free</div>
       <div class="stickybar__price"><span data-price>$49</span> · 60-day guarantee</div>
     </div>
-    <!-- ED pattern: sticky button scrolls UP to the buy box (B2G1 preselected does the selling) -->
-    <button class="btn btn--gold" data-scroll="#buybox">Get started &rarr;</button>
+    <!-- DEPLOY NOTE: sticky Get started goes STRAIGHT TO CHECKOUT (adds selected offer, redirects) -->
+    <button class="btn btn--gold" id="stickyAtc">Get started &rarr;</button>
   </div>
 </div>
 
@@ -440,8 +439,8 @@ footer .wrap>p{margin-bottom:10px}
 <!-- lab-proof centerpiece -->
 <section class="lab lazy-section">
   <div class="wrap">
-    <h2>Most brands say “pure.” We show you the lab report.</h2>
-    <p class="sub">Every batch goes to an independent, ISO 17025-accredited lab (ARL). Tap below to open this batch’s results.</p>
+    <h2>Most brands say “pure.”<br>We show you the lab report.</h2>
+    <p class="sub">Every batch goes to an independent, ISO 17025-accredited lab (ARL).</p>
     <div class="labcard" id="labcard">
       <button class="labcard__head" aria-expanded="false" aria-controls="labbody">
         <span class="labcard__seal"><img src="arl-logo.png" alt="" width="34" height="26" style="width:34px;height:auto"></span>
@@ -490,7 +489,8 @@ footer .wrap>p{margin-bottom:10px}
 <section class="compare lazy-section">
   <div class="wrap">
     <p class="kicker">The overlooked option</p>
-    <h2>There’s more than one way to support your gut. Only one shows you the lab report.</h2>
+    <!-- "scientifically proven" is banned copy (compliance guide §4/§10) — this is the compliant version of that idea -->
+    <h2>The gut support you can actually verify.</h2>
     <div class="scrollx">
       <table class="cmp">
         <tr><th></th><th class="maju">Maju<br>softgel</th><th>Probiotics</th><th>Garlic, papaya,<br>black walnut</th></tr>
@@ -512,10 +512,10 @@ footer .wrap>p{margin-bottom:10px}
     <p class="kicker">What you get</p>
     <h2>Simple, daily support</h2>
     <ul>
-      <li><span class="ico" aria-hidden="true">●</span><span><b>Gut &amp; digestion</b><span class="d">Supports healthy gut microbial balance and everyday digestive comfort</span></span></li>
-      <li><span class="ico" aria-hidden="true">●</span><span><b>Everyday energy</b><span class="d">Supports steady daily vitality as part of a consistent routine</span></span></li>
-      <li><span class="ico" aria-hidden="true">●</span><span><b>Immune support</b><span class="d">Supports the body’s natural defenses</span></span></li>
-      <li><span class="ico" aria-hidden="true">●</span><span><b>Everyday wellness</b><span class="d">Antioxidant support that complements a healthy diet and lifestyle</span></span></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M8 3v3a5 5 0 005 5h1a6 6 0 016 6c0 2.8-2.2 4-4.5 4-3 0-4-2-6.5-2S6 21 5 19.5C3.6 17.4 4 13 6.5 9.8 7.6 8.4 8 6.5 8 3z"/></svg></span><span><b>Gut &amp; digestion</b><span class="d">Supports healthy gut microbial balance and everyday digestive comfort</span></span></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M13 2L5 13h5l-1 9 8-11h-5l1-9z"/></svg></span><span><b>Everyday energy</b><span class="d">Supports steady daily vitality as part of a consistent routine</span></span></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M12 9v6M9 12h6"/></svg></span><span><b>Immune support</b><span class="d">Supports the body’s natural defenses</span></span></li>
+      <li><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1"/></svg></span><span><b>Everyday wellness</b><span class="d">Antioxidant support that complements a healthy diet and lifestyle</span></span></li>
     </ul>
     <p class="disclaimer" style="margin-top:10px">This product is not intended to diagnose, treat, cure or prevent any disease.</p>
   </div>
@@ -577,8 +577,7 @@ footer .wrap>p{margin-bottom:10px}
 <!-- FAQ -->
 <section class="faq lazy-section" style="padding-top:0">
   <div class="wrap">
-    <p class="kicker">Questions, answered straight</p>
-    <h2>FAQ</h2>
+    <h2>Any last questions?</h2>
     <details>
       <summary>Does it actually work?</summary>
       <div class="a">Carvacrol, oregano’s primary active compound, has been studied in clinical research, and black seed oil has centuries of traditional use behind it. We can’t promise how any one person will feel (nobody honestly can), which is why every order carries a 60-day money-back guarantee: take it consistently for weeks, judge for yourself, and get a refund if it isn’t for you.</div>
@@ -595,7 +594,6 @@ footer .wrap>p{margin-bottom:10px}
       <summary>Why this instead of another oregano supplement?</summary>
       <div class="a">Most oregano products never tell you their carvacrol content. “High potency” on the label, no number behind it. Ours is standardized up to 90% carvacrol, batch-tested by a third-party lab with results published, and paired with cold-pressed black seed oil in one softgel. If you’re comparing brands, ask each one for their batch COA. We’ve already linked ours above.</div>
     </details>
-    <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
 </section>
 
@@ -671,6 +669,7 @@ function addToCart(btn){
   }).then(function(r){ if (r.ok) window.location.href = '/checkout'; });
 }
 document.getElementById('atcBtn').addEventListener('click', function(){ addToCart(this); });
+document.getElementById('stickyAtc').addEventListener('click', function(){ addToCart(this); });
 
 // sticky FOOTER bar: show when in-page ATC out of view
 var stickybar = document.getElementById('stickybar');
