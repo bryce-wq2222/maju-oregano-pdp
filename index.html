@@ -108,7 +108,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .offer__now{font-weight:700;font-size:1.05rem}
 .offer__was{color:#9c937f;font-weight:400;font-size:.82rem;text-decoration:line-through;margin-left:4px}
 .offer__day{font-size:.72rem;color:#6b6355;font-weight:600}
-.shipnote{font-size:.75rem;font-weight:600;color:var(--ok);text-align:center;margin-top:8px}
+.autodisc{display:flex;align-items:center;justify-content:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--ok);margin-top:8px}
 .atc-note{font-size:.78rem;color:#6b6355;text-align:center;margin-top:10px}
 #atcBtn{margin-top:14px}
 
@@ -327,25 +327,26 @@ footer .wrap>p{margin-bottom:10px}
          Free-shipping threshold is $30+ (brand's published policy) — Buy 1 at $29 misses it, which is the push to $49. -->
     <button class="offer" role="radio" aria-checked="false" aria-pressed="false" data-offer="buy1">
       <span class="offer__radio" aria-hidden="true"></span>
-      <span><span class="offer__name">Buy 1 bottle</span><br><span class="offer__meta">30-day supply · renews at $79 · + shipping</span></span>
+      <span><span class="offer__name">Buy 1 bottle</span><br><span class="offer__meta">30-day supply · + shipping</span></span>
       <span class="offer__price"><span class="offer__now">$29</span><span class="offer__was">$79</span><br><span class="offer__day">$0.97/day</span></span>
     </button>
     <button class="offer" role="radio" aria-checked="true" aria-pressed="true" data-offer="buy2get1">
       <span class="offer__badge">Most popular</span>
       <span class="offer__radio" aria-hidden="true"></span>
-      <span><span class="offer__name">Buy 2, Get 1 Free<em class="offer__pill">Save 59%</em></span><br><span class="offer__meta">90-day supply · renews at $119.85 · <b>FREE shipping</b></span></span>
+      <span><span class="offer__name">Buy 2, Get 1 Free<em class="offer__pill">Save 59%</em></span><br><span class="offer__meta">90-day supply · <b>FREE shipping</b></span></span>
       <span class="offer__price"><span class="offer__now">$49</span><span class="offer__was">$119.85</span><br><span class="offer__day">$0.54/day</span></span>
     </button>
     <button class="offer" role="radio" aria-checked="false" aria-pressed="false" data-offer="buy3get2">
       <span class="offer__badge" style="background:var(--cream)">Best value</span>
       <span class="offer__radio" aria-hidden="true"></span>
-      <span><span class="offer__name">Buy 3, Get 2 Free<em class="offer__pill">Save 63%</em></span><br><span class="offer__meta">150-day supply · renews at $199.75 · <b>FREE shipping</b></span></span>
+      <span><span class="offer__name">Buy 3, Get 2 Free<em class="offer__pill">Save 63%</em></span><br><span class="offer__meta">150-day supply · <b>FREE shipping</b></span></span>
       <span class="offer__price"><span class="offer__now">$74</span><span class="offer__was">$199.75</span><br><span class="offer__day">$0.49/day</span></span>
     </button>
   </div>
-  <p class="shipnote">Free US shipping on orders $30+</p>
   <!-- ED "GET MY STARTER KIT" equivalent: the ONLY button that adds to cart. No price. -->
   <button class="btn btn--gold" id="atcBtn">Get started &rarr;</button>
+  <!-- Grüns pattern: reassurance microcopy under the CTA; true for us — intro price is a checkout auto-discount -->
+  <p class="autodisc">✓ Discount auto-applied</p>
 
   <!-- trust band RIGHT below add to cart -->
   <div class="truststrip">
@@ -353,7 +354,8 @@ footer .wrap>p{margin-bottom:10px}
     <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>60-day<br>money-back</div>
     <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 7h13v10H3zM16 10h3l2 3v4h-5M6 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg>Free<br>shipping</div>
   </div>
-  <p class="atc-note">Refills ship every 30 days · stop or cancel anytime. An email reminder is sent before each shipment.</p>
+  <!-- Renewal disclosure (Grüns approach): one clear line, synced to the selected tier -->
+  <p class="atc-note">Renews at <span data-renew>$119.85</span> every 30 days · cancel anytime. Email reminder before each shipment.</p>
 
   <!-- review slider — next card peeks (all real Junip reviews) -->
   <div class="slider rev-slider" id="reviews" aria-label="Customer reviews">
@@ -481,7 +483,6 @@ footer .wrap>p{margin-bottom:10px}
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/16.jpg?v=1780681698&width=800" alt="Amber glass protective packaging" width="800" height="500" loading="lazy"><div class="pad"><h3>Protected in amber glass</h3><p>Shielded from UV light to preserve what the Certificate of Analysis verified.</p></div></div>
     </div>
     <p class="sub" style="font-size:.85rem;margin-top:10px">Every batch goes to an independent lab before it goes in a bottle.</p>
-    <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
 </section>
 
@@ -517,7 +518,6 @@ footer .wrap>p{margin-bottom:10px}
       <li><span class="ico" aria-hidden="true">●</span><span><b>Everyday wellness</b><span class="d">Antioxidant support that complements a healthy diet and lifestyle</span></span></li>
     </ul>
     <p class="disclaimer" style="margin-top:10px">This product is not intended to diagnose, treat, cure or prevent any disease.</p>
-    <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
 </section>
 
@@ -570,7 +570,6 @@ footer .wrap>p{margin-bottom:10px}
       <div class="seal">60-DAY</div>
       <h2>60-day money-back guarantee</h2>
       <p>Try it for two full months. If you decide it’s not for you, we’ll refund your order. No forms, no hoops. 10+ years in business, and we stand behind every bottle.</p>
-      <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
     </div>
   </div>
 </section>
@@ -635,9 +634,9 @@ footer .wrap>p{margin-bottom:10px}
 // Real IDs from the live storefront (product 8408719917242, Recharge plan 4483580090).
 // Variant prices are renewal prices; $29/$49/$74 intro applied store-side at checkout.
 var SHOPIFY_CONFIG = {
-  buy1:     { variantId: 45944784126138, sellingPlanId: 4483580090, qty: 1, label: 'Buy 1 bottle',      price: '$29' },
-  buy2get1: { variantId: 45945500172474, sellingPlanId: 4483580090, qty: 1, label: 'Buy 2, Get 1 Free', price: '$49' },
-  buy3get2: { variantId: 45945500205242, sellingPlanId: 4483580090, qty: 1, label: 'Buy 3, Get 2 Free', price: '$74' }
+  buy1:     { variantId: 45944784126138, sellingPlanId: 4483580090, qty: 1, label: 'Buy 1 bottle',      price: '$29', renew: '$79' },
+  buy2get1: { variantId: 45945500172474, sellingPlanId: 4483580090, qty: 1, label: 'Buy 2, Get 1 Free', price: '$49', renew: '$119.85' },
+  buy3get2: { variantId: 45945500205242, sellingPlanId: 4483580090, qty: 1, label: 'Buy 3, Get 2 Free', price: '$74', renew: '$199.75' }
 };
 var selected = 'buy2get1';
 
@@ -650,6 +649,7 @@ function selectOffer(key){
   });
   var cfg = SHOPIFY_CONFIG[key];
   document.querySelectorAll('[data-price]').forEach(function(el){ el.textContent = cfg.price; });
+  document.querySelectorAll('[data-renew]').forEach(function(el){ el.textContent = cfg.renew; });
   document.querySelectorAll('[data-offer-name]').forEach(function(el){ el.textContent = cfg.label; });
 }
 offers.forEach(function(o){ o.addEventListener('click', function(){ selectOffer(o.dataset.offer); }); });
@@ -692,9 +692,9 @@ document.getElementById('labchip').addEventListener('click', function(){ coaModa
 document.getElementById('coaOpenBtn').addEventListener('click', function(){ coaModal.classList.add('open'); });
 coaModal.addEventListener('click', function(){ coaModal.classList.remove('open'); });
 
-// Mid-page CTA labels alternate: Get started / Try Maju today
+// Mid-page CTA labels alternate, starting with Try Maju today (buy box already says Get started)
 document.querySelectorAll('.cta-row .btn').forEach(function(b, i){
-  b.innerHTML = (i % 2 === 0 ? 'Get started' : 'Try Maju today') + ' &rarr;';
+  b.innerHTML = (i % 2 === 0 ? 'Try Maju today' : 'Get started') + ' &rarr;';
 });
 
 // Grüns-style thumbnails: built from the slides, click jumps, active syncs on swipe
