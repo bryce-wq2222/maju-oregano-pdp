@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Maju Oregano PDP — Preview</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Poppins',system-ui,sans-serif;background:#211E1B;min-height:100vh;color:#EFDA98}
+.bar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:center;gap:14px;padding:14px;background:#2C2926;border-bottom:1px solid #4A453D}
+.bar b{font-size:.9rem;letter-spacing:.06em;text-transform:uppercase;color:#E9C969;margin-right:10px}
+.bar button{font:inherit;font-weight:600;font-size:.85rem;padding:9px 22px;border-radius:999px;border:1px solid #AC8D3E;background:none;color:#EFDA98;cursor:pointer}
+.bar button.on{background:#FFCE02;color:#2C2926;border-color:#FFCE02}
+.stage{display:flex;justify-content:center;padding:26px 16px 60px}
+/* phone frame */
+.phone{display:none;width:412px;max-width:100%;background:#111;border-radius:44px;padding:11px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.phone .notch{width:120px;height:22px;background:#111;border-radius:0 0 14px 14px;position:absolute;left:50%;transform:translateX(-50%);top:11px;z-index:2}
+.phone .screen{position:relative;border-radius:34px;overflow:hidden;background:#fff}
+.phone iframe{width:390px;height:78vh;min-height:640px;border:0;display:block}
+/* desktop frame */
+.desk{display:none;width:min(1320px,96vw);background:#111;border-radius:14px;padding:10px 10px 14px;box-shadow:0 24px 60px rgba(0,0,0,.5)}
+.desk .chrome{display:flex;align-items:center;gap:6px;padding:4px 8px 10px}
+.desk .chrome i{width:10px;height:10px;border-radius:50%;background:#4A453D;display:block}
+.desk .chrome i:nth-child(1){background:#B4231F}.desk .chrome i:nth-child(2){background:#FEBE12}.desk .chrome i:nth-child(3){background:#1E7B4D}
+.desk .chrome span{margin-left:10px;font-size:.7rem;color:#8B8271;background:#2C2926;border-radius:6px;padding:3px 12px}
+.desk iframe{width:100%;height:80vh;border:0;display:block;border-radius:8px;background:#fff}
+body[data-view="mobile"] .phone{display:block}
+body[data-view="desktop"] .desk{display:block}
+.hint{text-align:center;font-size:.75rem;color:#8B8271;padding-bottom:30px}
+@media(max-width:520px){.phone{border-radius:0;padding:0;width:100%}.phone .screen{border-radius:0}.phone iframe{width:100%;height:85vh}}
+</style>
+</head>
+<body data-view="mobile">
+<div class="bar">
+  <b>Maju Oregano PDP</b>
+  <button id="bm" class="on">📱 Mobile 390</button>
+  <button id="bd">🖥 Desktop</button>
+</div>
+<div class="stage">
+  <div class="phone"><div class="screen"><iframe src="index.html" title="Mobile preview"></iframe></div></div>
+  <div class="desk"><div class="chrome"><i></i><i></i><i></i><span>majusuperfoods.com/products/oregano-oil-capsules-60ct?view=oregano-challenger</span></div><iframe src="index.html" title="Desktop preview"></iframe></div>
+</div>
+<p class="hint">Everything is clickable: offer picker, add-to-cart (preview mode), lab-report reveal, gallery swipe, FAQ, sticky buy bar.</p>
+<script>
+var bm = document.getElementById('bm'), bd = document.getElementById('bd');
+bm.onclick = function(){ document.body.dataset.view = 'mobile'; bm.classList.add('on'); bd.classList.remove('on'); };
+bd.onclick = function(){ document.body.dataset.view = 'desktop'; bd.classList.add('on'); bm.classList.remove('on'); };
+</script>
+</body>
+</html>
