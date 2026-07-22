@@ -41,7 +41,11 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;min-height:54px;background:var(--ink);color:var(--white);font-weight:700;font-size:1.05rem;border-radius:999px;transition:transform .12s ease}
 .btn:active{transform:scale(.985)}
 .btn--gold{background:var(--yellow);color:var(--ink)}
+.btn--cta{display:inline-flex;width:auto;padding:0 28px;min-height:48px;font-size:.95rem;background:var(--yellow);color:var(--ink)}
+.cta-row{text-align:center;margin-top:18px}
 .stars{color:var(--amber);letter-spacing:1px}
+.wordmark{font-weight:700;font-size:1.05rem;color:#6b6355;opacity:.8;white-space:nowrap}
+.wordmark--serif{font-family:Georgia,'Times New Roman',serif}
 .nowrap{white-space:nowrap}
 
 /* shared horizontal slider w/ peek */
@@ -219,11 +223,17 @@ footer .wrap>p{margin-bottom:10px}
 
 /* desktop */
 @media(min-width:900px){
-  :root{--maxw:1060px}
-  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start;max-width:var(--maxw);margin:0 auto;padding:24px 16px 0}
-  .hero-grid>div:first-child{position:sticky;top:20px}
-  .hero-grid .gallery{border-radius:18px;overflow:hidden}
-  .hero-grid .wrap{padding:0}
+  :root{--maxw:1080px}
+  /* ED desktop: gallery sticky left · title + buy box stacked right */
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;column-gap:48px;align-items:start;max-width:var(--maxw);margin:0 auto;padding:28px 24px 0}
+  .gcol{grid-column:1;grid-row:1 / span 2;position:sticky;top:20px}
+  .gallery{border-radius:18px;overflow:hidden}
+  .hero-grid .hero{grid-column:2;grid-row:1;padding:0 0 4px}
+  .bcol{grid-column:2;grid-row:2}
+  .gcol,.bcol,.hero-grid .hero{min-width:0}
+  .hero-grid .wrap{padding:0;max-width:none}
+  .hero-grid .slider{margin:0;padding:4px 0 8px}
+  .buybox{padding-top:8px}
   section .wrap{max-width:720px}
   .rev-slider .testi{width:300px}
   .ugc__tile{width:15.5%}
@@ -238,7 +248,7 @@ footer .wrap>p{margin-bottom:10px}
 <div class="proofstrip"><strong>1,000,000+ orders</strong> shipped since 2015 &nbsp;·&nbsp; 2-day &amp; next-day shipping</div>
 
 <div class="hero-grid">
-<div>
+<div class="gcol">
 <!-- 1. product photo carousel FIRST -->
 <div class="gallery" id="gallery">
   <div class="gallery__track" aria-label="Product photos" role="region" tabindex="0">
@@ -250,6 +260,7 @@ footer .wrap>p{margin-bottom:10px}
     <div class="gallery__slide"><img src="https://majusuperfoods.com/cdn/shop/files/6th-img.jpg?v=1780676879&width=800" alt="Wild oregano sourcing in the Taurus Mountains" width="800" height="800" loading="lazy"></div>
   </div>
   <div class="gallery__dots" aria-hidden="true"></div>
+</div>
 </div>
 
 <!-- 2. product title · 3. stars + review count one line · 4. subhead -->
@@ -266,9 +277,8 @@ footer .wrap>p{margin-bottom:10px}
     <span class="chip">Non-GMO</span>
   </div>
 </section>
-</div>
 
-<div>
+<div class="bcol">
 <!-- 5. buy box -->
 <section class="buybox wrap" id="buybox">
   <div class="offers" role="radiogroup" aria-label="Choose your offer">
@@ -333,7 +343,8 @@ footer .wrap>p{margin-bottom:10px}
       <div class="stickybar__name" data-offer-name>Buy 2, Get 1 Free</div>
       <div class="stickybar__price"><span data-price>$49</span> · 60-day guarantee</div>
     </div>
-    <button class="btn btn--gold" data-scroll="#buybox">Add to cart</button>
+    <!-- ED pattern: sticky button adds directly to cart -->
+    <button class="btn btn--gold js-atc">Get started — <span data-price>$49</span></button>
   </div>
 </div>
 
@@ -344,16 +355,19 @@ footer .wrap>p{margin-bottom:10px}
   <p class="kicker">As seen on</p>
   <div class="press__viewport" aria-label="Press mentions">
     <div class="press__track">
-      <!-- set 1 -->
+      <!-- set 1 · ⚠ NYT + NBC are wireframe placeholders — NOT substantiated for Maju anywhere.
+           LAUNCH GATE: client provides real coverage links or these two come out. -->
       <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="Chicago Tribune" width="150" height="24" loading="lazy">
+      <span class="wordmark wordmark--serif">The New York Times</span>
       <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="BuzzFeed" width="120" height="24" loading="lazy">
+      <span class="wordmark">NBC</span>
       <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="Zulily" width="100" height="24" loading="lazy">
-      <!-- <img src="[NBC_LOGO_URL_PENDING_SUBSTANTIATION]" alt="NBC" width="60" height="24" loading="lazy"> -->
       <!-- set 2 (duplicate for seamless loop) -->
       <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="" aria-hidden="true" width="150" height="24" loading="lazy">
+      <span class="wordmark wordmark--serif" aria-hidden="true">The New York Times</span>
       <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="" aria-hidden="true" width="120" height="24" loading="lazy">
+      <span class="wordmark" aria-hidden="true">NBC</span>
       <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="" aria-hidden="true" width="100" height="24" loading="lazy">
-      <!-- <img src="[NBC_LOGO_URL_PENDING_SUBSTANTIATION]" alt="" aria-hidden="true" width="60" height="24" loading="lazy"> -->
     </div>
   </div>
 </section>
@@ -372,6 +386,7 @@ footer .wrap>p{margin-bottom:10px}
       <div class="ugc__tile">[UGC_CLIP_6]</div>
     </div>
     <p class="disclaimer" style="margin-top:8px">#ad = paid partnership. All experiences are individual; results may vary.</p>
+    <div class="cta-row"><button class="btn btn--cta js-atc">Get started — <span data-price>$49</span></button></div>
   </div>
 </section>
 
@@ -407,6 +422,7 @@ footer .wrap>p{margin-bottom:10px}
       </div>
     </div>
     <p class="disclaimer">Testing by Analytical Resource Laboratories (ISO/IEC 17025:2017 accredited, #77504). These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+    <div class="cta-row"><button class="btn btn--cta js-atc">Get started — <span data-price>$49</span></button></div>
   </div>
 </section>
 
@@ -426,6 +442,7 @@ footer .wrap>p{margin-bottom:10px}
       </table>
     </div>
     <p class="disclaimer" style="margin-top:10px">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+    <div class="cta-row"><button class="btn btn--cta js-atc">Get started — <span data-price>$49</span></button></div>
   </div>
 </section>
 
@@ -441,6 +458,7 @@ footer .wrap>p{margin-bottom:10px}
       <li><span class="ico" aria-hidden="true">●</span><span><b>Everyday wellness</b><span class="d">Antioxidant support that complements a healthy diet and lifestyle</span></span></li>
     </ul>
     <p class="disclaimer" style="margin-top:10px">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+    <div class="cta-row"><button class="btn btn--cta js-atc">Get started — <span data-price>$49</span></button></div>
   </div>
 </section>
 
@@ -466,6 +484,7 @@ footer .wrap>p{margin-bottom:10px}
         <b>Stay consistent</b><span>Give it a few weeks — 60-day guarantee</span>
       </div>
     </div>
+    <div class="cta-row"><button class="btn btn--cta js-atc">Get started — <span data-price>$49</span></button></div>
   </div>
 </section>
 
@@ -480,6 +499,7 @@ footer .wrap>p{margin-bottom:10px}
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/16.jpg?v=1780681698&width=800" alt="Amber glass protective packaging" width="800" height="500" loading="lazy"><div class="pad"><h3>Protected in amber glass</h3><p>Shielded from UV light to preserve what the Certificate of Analysis verified.</p></div></div>
     </div>
     <p class="sub" style="font-size:.85rem;margin-top:10px">Sourcing stories are easy to tell. That’s why every batch still goes to an independent lab before it goes in a bottle.</p>
+    <div class="cta-row"><button class="btn btn--cta js-atc">Get started — <span data-price>$49</span></button></div>
   </div>
 </section>
 
@@ -504,6 +524,7 @@ footer .wrap>p{margin-bottom:10px}
       <div class="seal">60-DAY</div>
       <h2>60-day money-back guarantee</h2>
       <p>Try it for two full months. If you decide it’s not for you, we’ll refund your order — no forms, no hoops. 10+ years in business; we stand behind every bottle.</p>
+      <div class="cta-row"><button class="btn btn--cta js-atc">Get started — <span data-price>$49</span></button></div>
     </div>
   </div>
 </section>
@@ -529,6 +550,7 @@ footer .wrap>p{margin-bottom:10px}
       <summary>Why this instead of another oregano supplement?</summary>
       <div class="a">Most oregano products never tell you their carvacrol content — “high potency” on the label, no number behind it. Ours is standardized up to 90% carvacrol, batch-tested by a third-party lab with results published, and paired with cold-pressed black seed oil in one softgel. If you’re comparing brands, ask each one for their batch COA. We’ve already linked ours above.</div>
     </details>
+    <div class="cta-row"><button class="btn btn--cta js-atc">Get started — <span data-price>$49</span></button></div>
   </div>
 </section>
 
@@ -538,7 +560,7 @@ footer .wrap>p{margin-bottom:10px}
     <p class="kicker" style="color:var(--gold)">Ready when you are</p>
     <h2>Add the overlooked one to your routine</h2>
     <p class="offer-recap">Buy 2, Get 1 Free — $49 today · 60-day money-back guarantee · free shipping</p>
-    <button class="btn btn--gold" data-scroll="#buybox">Choose your offer</button>
+    <button class="btn btn--gold js-atc" style="max-width:340px;margin-left:auto;margin-right:auto">Get started — <span data-price>$49</span></button>
   </div>
 </section>
 
@@ -573,19 +595,25 @@ function selectOffer(key){
 }
 offers.forEach(function(o){ o.addEventListener('click', function(){ selectOffer(o.dataset.offer); }); });
 
-document.getElementById('atcBtn').addEventListener('click', function(){
+// Shared add-to-cart: main ATC button + sticky bar + every section "Get started" CTA
+function addToCart(btn){
   var cfg = SHOPIFY_CONFIG[selected];
   var onShopify = /majusuperfoods\.com$/.test(location.hostname);
   if (!onShopify) {
     console.log('[preview] would add to cart:', cfg);
-    this.textContent = 'Added ✓ (preview mode)';
-    var btn = this; setTimeout(function(){ btn.innerHTML = 'Add to cart — <span data-price>' + cfg.price + '</span>'; }, 1600);
+    var orig = btn.innerHTML;
+    btn.textContent = 'Added ✓ (preview)';
+    setTimeout(function(){ btn.innerHTML = orig; selectOffer(selected); }, 1400);
     return;
   }
   fetch('/cart/add.js', {
     method: 'POST', headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ items: [{ id: cfg.variantId, quantity: cfg.qty, selling_plan: cfg.sellingPlanId }] })
   }).then(function(r){ if (r.ok) window.location.href = '/checkout'; });
+}
+document.getElementById('atcBtn').addEventListener('click', function(){ addToCart(this); });
+document.querySelectorAll('.js-atc').forEach(function(b){
+  b.addEventListener('click', function(){ addToCart(b); });
 });
 
 // sticky FOOTER bar: show when in-page ATC out of view
