@@ -86,11 +86,10 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .label-modal__close{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;background:#fff;color:var(--ink);font-size:1.3rem;font-weight:700;display:grid;place-items:center}
 
 /* Grüns-style inline lab card (under gallery) */
-.labchip{display:flex;align-items:center;gap:12px;width:calc(100% - 2*var(--gutter));margin:8px var(--gutter) 2px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;text-align:left;cursor:pointer}
-.labchip__badge{width:38px;height:38px;flex:none;border-radius:50%;background:var(--cream);border:1.5px solid var(--gold);display:grid;place-items:center}
-.labchip__badge svg{width:20px;height:20px;stroke:var(--bronze)}
-.labchip .l1{font-size:.85rem;font-weight:600}
-.labchip .l2{font-size:.82rem;font-weight:600;color:#5c564d;margin-top:2px}
+.labchip{display:flex;align-items:center;gap:12px;width:calc(100% - 2*var(--gutter));margin:6px var(--gutter) 2px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:9px 14px;text-align:left;cursor:pointer}
+.labchip__logo{width:52px;height:auto;flex:none}
+.labchip .l1{font-size:.84rem;font-weight:600;white-space:nowrap}
+.labchip .l2{font-size:.8rem;font-weight:600;color:#5c564d;margin-top:1px;white-space:nowrap}
 .labchip .l2 span{color:var(--ink)}
 
 /* buybox */
@@ -291,11 +290,9 @@ footer .wrap>p{margin-bottom:10px}
 
 <!-- Grüns-style lab card: opens the full lab section. No date chip (no current-dated report on hand). -->
 <button class="labchip" id="labchip" aria-controls="labbody">
-  <span class="labchip__badge" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/><path d="M8.5 12l2.4 2.4L15.5 9.5"/></svg>
-  </span>
+  <img class="labchip__logo" src="arl-logo.png" alt="ARL Analytical Resource Laboratories" width="52" height="40">
   <span>
-    <span class="l1">Tested by ARL Labs</span>
+    <span class="l1">Tested by ARL Labs</span><br>
     <span class="l2"><span>8 substances tested for quality</span> &rarr;</span>
   </span>
 </button>
@@ -426,7 +423,6 @@ footer .wrap>p{margin-bottom:10px}
       <div class="ugc__tile">[UGC_CLIP_5]</div>
       <div class="ugc__tile">[UGC_CLIP_6]</div>
     </div>
-    <p class="disclaimer" style="margin-top:8px">#ad = paid partnership. All experiences are individual; results may vary.</p>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
 </section>
@@ -461,7 +457,7 @@ footer .wrap>p{margin-bottom:10px}
         </div>
       </div>
     </div>
-    <p class="disclaimer">Testing by Analytical Resource Laboratories (ISO/IEC 17025:2017 accredited, #77504). These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+    <p class="disclaimer">Testing by Analytical Resource Laboratories, ISO/IEC 17025 accredited (#77504).</p>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
 </section>
@@ -470,13 +466,13 @@ footer .wrap>p{margin-bottom:10px}
 <section class="lazy-section" style="padding-top:0">
   <div class="wrap">
     <p class="kicker">Where it comes from</p>
-    <h2>Wild-harvested. Cold-pressed. Lab-tested every batch.</h2>
+    <h2>Wild-harvested. Cold-pressed.<br>Lab-tested every batch.</h2>
     <div class="slider src-slider" style="margin-top:12px" aria-label="Sourcing story">
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/first-img.png?v=1777570694&width=800" alt="Wild oregano growing in the Taurus Mountains of Turkey" width="800" height="500" loading="lazy"><div class="pad"><h3>Wild-harvested oregano</h3><p>Hand-picked in the Taurus Mountains of Turkey, grown by sun and rainfall with no intervention.</p></div></div>
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/cold-press.png?v=1780681656&width=800" alt="Cold-press extraction" width="800" height="500" loading="lazy"><div class="pad"><h3>Cold-pressed</h3><p>No heat and no chemical solvents like hexane, so the compounds the lab measures stay intact.</p></div></div>
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/16.jpg?v=1780681698&width=800" alt="Amber glass protective packaging" width="800" height="500" loading="lazy"><div class="pad"><h3>Protected in amber glass</h3><p>Shielded from UV light to preserve what the Certificate of Analysis verified.</p></div></div>
     </div>
-    <p class="sub" style="font-size:.85rem;margin-top:10px">Sourcing stories are easy to tell. That’s why every batch still goes to an independent lab before it goes in a bottle.</p>
+    <p class="sub" style="font-size:.85rem;margin-top:10px">Every batch goes to an independent lab before it goes in a bottle.</p>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
 </section>
@@ -496,7 +492,7 @@ footer .wrap>p{margin-bottom:10px}
         <tr><td>One step daily, 2 softgels</td><td class="maju y">✓</td><td class="m">Varies</td><td class="n">✗</td></tr>
       </table>
     </div>
-    <p class="disclaimer" style="margin-top:10px">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+    <p class="disclaimer" style="margin-top:10px">This product is not intended to diagnose, treat, cure or prevent any disease.</p>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
 </section>
@@ -504,7 +500,7 @@ footer .wrap>p{margin-bottom:10px}
 <!-- benefits -->
 <section class="benefits lazy-section">
   <div class="wrap">
-    <p class="kicker">What it supports</p>
+    <p class="kicker">What you get</p>
     <h2>Simple, daily support</h2>
     <ul>
       <li><span class="ico" aria-hidden="true">●</span><span><b>Gut &amp; digestion</b><span class="d">Supports healthy gut microbial balance and everyday digestive comfort</span></span></li>
@@ -512,7 +508,7 @@ footer .wrap>p{margin-bottom:10px}
       <li><span class="ico" aria-hidden="true">●</span><span><b>Immune support</b><span class="d">Supports the body’s natural defenses</span></span></li>
       <li><span class="ico" aria-hidden="true">●</span><span><b>Everyday wellness</b><span class="d">Antioxidant support that complements a healthy diet and lifestyle</span></span></li>
     </ul>
-    <p class="disclaimer" style="margin-top:10px">*These statements have not been evaluated by the Food and Drug Administration. This product is not intended to diagnose, treat, cure or prevent any disease.</p>
+    <p class="disclaimer" style="margin-top:10px">This product is not intended to diagnose, treat, cure or prevent any disease.</p>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
 </section>
