@@ -37,11 +37,13 @@ body[data-view="desktop"] .desk{display:block}
   <button id="bd">🖥 Desktop</button>
 </div>
 <div class="stage">
-  <div class="phone"><div class="screen"><iframe src="index.html" title="Mobile preview"></iframe></div></div>
-  <div class="desk"><div class="chrome"><i></i><i></i><i></i><span>majusuperfoods.com/products/oregano-oil-capsules-60ct?view=oregano-challenger</span></div><iframe src="index.html" title="Desktop preview"></iframe></div>
+  <div class="phone"><div class="screen"><iframe data-src="index.html" title="Mobile preview"></iframe></div></div>
+  <div class="desk"><div class="chrome"><i></i><i></i><i></i><span>majusuperfoods.com/products/oregano-oil-capsules-60ct?view=oregano-challenger</span></div><iframe data-src="index.html" title="Desktop preview"></iframe></div>
 </div>
 <p class="hint">Everything is clickable: offer picker, add-to-cart (preview mode), lab-report reveal, gallery swipe, FAQ, sticky buy bar.</p>
 <script>
+// Cache-bust: always load the newest index.html (GitHub Pages caches for 10 min otherwise)
+document.querySelectorAll('iframe[data-src]').forEach(function(f){ f.src = f.dataset.src + '?v=' + Date.now(); });
 var bm = document.getElementById('bm'), bd = document.getElementById('bd');
 bm.onclick = function(){ document.body.dataset.view = 'mobile'; bm.classList.add('on'); bd.classList.remove('on'); };
 bd.onclick = function(){ document.body.dataset.view = 'desktop'; bd.classList.add('on'); bm.classList.remove('on'); };
