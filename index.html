@@ -101,10 +101,14 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .offer__radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--bronze);flex:none;display:grid;place-items:center}
 .offer[aria-pressed="true"] .offer__radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink)}
 .offer__name{font-weight:700;font-size:.95rem}
-.offer__meta{font-size:.78rem;color:#6b6355}
-.offer__price{margin-left:auto;text-align:right}
+.offer__pill{background:#E4F3E9;color:var(--ok);font-size:.64rem;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;font-style:normal;white-space:nowrap;vertical-align:1px}
+.offer__meta{font-size:.75rem;color:#6b6355}
+.offer__meta b{color:var(--ok)}
+.offer__price{margin-left:auto;text-align:right;flex:none}
 .offer__now{font-weight:700;font-size:1.05rem}
-.offer__save{font-size:.72rem;color:var(--ok);font-weight:600}
+.offer__was{color:#9c937f;font-weight:400;font-size:.82rem;text-decoration:line-through;margin-left:4px}
+.offer__day{font-size:.72rem;color:#6b6355;font-weight:600}
+.shipnote{font-size:.75rem;font-weight:600;color:var(--ok);text-align:center;margin-top:8px}
 .atc-note{font-size:.78rem;color:#6b6355;text-align:center;margin-top:10px}
 #atcBtn{margin-top:14px}
 
@@ -153,7 +157,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .lab .sub{color:#CBC2AB}
 .labcard{margin-top:18px;background:#37332E;border:1px solid #4A453D;border-radius:18px;overflow:hidden}
 .labcard__head{width:100%;display:flex;align-items:center;gap:14px;padding:18px 16px;text-align:left;color:inherit}
-.labcard__seal{width:46px;height:46px;flex:none;border-radius:50%;background:var(--gold);color:var(--ink);display:grid;place-items:center;font-weight:700;font-size:.62rem;text-align:center;line-height:1.1}
+.labcard__seal{width:46px;height:46px;flex:none;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden}
 .labcard__title{font-weight:700;color:#fff;font-size:.98rem}
 .labcard__hint{font-size:.76rem;color:#B7AD97}
 .labcard__chev{margin-left:auto;transition:transform .25s;flex:none}
@@ -319,24 +323,27 @@ footer .wrap>p{margin-bottom:10px}
 <!-- 5. buy box -->
 <section class="buybox wrap" id="buybox">
   <div class="offers" role="radiogroup" aria-label="Choose your offer">
+    <!-- Grüns-style rows: price + strikethrough inline, per-day cost under, save pill by the name.
+         Free-shipping threshold is $30+ (brand's published policy) — Buy 1 at $29 misses it, which is the push to $49. -->
     <button class="offer" role="radio" aria-checked="false" aria-pressed="false" data-offer="buy1">
       <span class="offer__radio" aria-hidden="true"></span>
-      <span><span class="offer__name">Buy 1 bottle</span><br><span class="offer__meta">30-day supply · renews at $79</span></span>
-      <span class="offer__price"><span class="offer__now">$29</span></span>
+      <span><span class="offer__name">Buy 1 bottle</span><br><span class="offer__meta">30-day supply · renews at $79 · + shipping</span></span>
+      <span class="offer__price"><span class="offer__now">$29</span><span class="offer__was">$79</span><br><span class="offer__day">$0.97/day</span></span>
     </button>
     <button class="offer" role="radio" aria-checked="true" aria-pressed="true" data-offer="buy2get1">
       <span class="offer__badge">Most popular</span>
       <span class="offer__radio" aria-hidden="true"></span>
-      <span><span class="offer__name">Buy 2, Get 1 Free</span><br><span class="offer__meta">90-day supply · renews at $119.85</span></span>
-      <span class="offer__price"><span class="offer__now">$49</span><br><span class="offer__save">Save 59%</span></span>
+      <span><span class="offer__name">Buy 2, Get 1 Free<em class="offer__pill">Save 59%</em></span><br><span class="offer__meta">90-day supply · renews at $119.85 · <b>FREE shipping</b></span></span>
+      <span class="offer__price"><span class="offer__now">$49</span><span class="offer__was">$119.85</span><br><span class="offer__day">$0.54/day</span></span>
     </button>
     <button class="offer" role="radio" aria-checked="false" aria-pressed="false" data-offer="buy3get2">
       <span class="offer__badge" style="background:var(--cream)">Best value</span>
       <span class="offer__radio" aria-hidden="true"></span>
-      <span><span class="offer__name">Buy 3, Get 2 Free</span><br><span class="offer__meta">150-day supply · renews at $199.75</span></span>
-      <span class="offer__price"><span class="offer__now">$74</span><br><span class="offer__save">Save 63%</span></span>
+      <span><span class="offer__name">Buy 3, Get 2 Free<em class="offer__pill">Save 63%</em></span><br><span class="offer__meta">150-day supply · renews at $199.75 · <b>FREE shipping</b></span></span>
+      <span class="offer__price"><span class="offer__now">$74</span><span class="offer__was">$199.75</span><br><span class="offer__day">$0.49/day</span></span>
     </button>
   </div>
+  <p class="shipnote">Free US shipping on orders $30+</p>
   <!-- ED "GET MY STARTER KIT" equivalent: the ONLY button that adds to cart. No price. -->
   <button class="btn btn--gold" id="atcBtn">Get started &rarr;</button>
 
@@ -369,7 +376,6 @@ footer .wrap>p{margin-bottom:10px}
       <p>“This stuff is great. Everyone should take this for a few months out of each year.”</p>
       <p class="who">William C · Verified buyer</p></div>
   </div>
-  <p class="disclaimer">Results may vary.</p>
 </section>
 </div>
 </div><!-- /hero-grid -->
@@ -416,9 +422,11 @@ footer .wrap>p{margin-bottom:10px}
     <!-- Grüns pattern: "Join 1M+ others filling nutrition gaps". "fixing their gut" is not usable (fix = banned verb). -->
     <h2>Join 32,000+ others supporting their gut</h2>
     <div class="slider" style="margin-top:12px" aria-label="Customer videos">
-      <div class="ugc__tile">[UGC_CLIP_1]<span class="ad">#ad</span></div>
+      <!-- FTC note: if a clip is from an incentivized creator, the #ad disclosure must be
+           burned into the clip itself since there's no on-page tag anymore. -->
+      <div class="ugc__tile">[UGC_CLIP_1]</div>
       <div class="ugc__tile">[UGC_CLIP_2]</div>
-      <div class="ugc__tile">[UGC_CLIP_3]<span class="ad">#ad</span></div>
+      <div class="ugc__tile">[UGC_CLIP_3]</div>
       <div class="ugc__tile">[UGC_CLIP_4]</div>
       <div class="ugc__tile">[UGC_CLIP_5]</div>
       <div class="ugc__tile">[UGC_CLIP_6]</div>
@@ -431,13 +439,13 @@ footer .wrap>p{margin-bottom:10px}
 <section class="lab lazy-section">
   <div class="wrap">
     <h2>Most brands say “pure.” We show you the lab report.</h2>
-    <p class="sub">Every batch goes to an independent, ISO 17025-accredited lab (ARL). Tap below to open this batch’s results, the same document we keep on file.</p>
+    <p class="sub">Every batch goes to an independent, ISO 17025-accredited lab (ARL). Tap below to open this batch’s results.</p>
     <div class="labcard" id="labcard">
       <button class="labcard__head" aria-expanded="false" aria-controls="labbody">
-        <span class="labcard__seal">ARL<br>TESTED</span>
+        <span class="labcard__seal"><img src="arl-logo.png" alt="" width="34" height="26" style="width:34px;height:auto"></span>
         <span>
           <span class="labcard__title">See this batch’s lab results</span><br>
-          <span class="labcard__hint">Lot 2509134 · tap to reveal</span>
+          <span class="labcard__hint">Lot 2509134</span>
         </span>
         <svg class="labcard__chev" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
       </button>
@@ -451,7 +459,7 @@ footer .wrap>p{margin-bottom:10px}
           <div class="labrow"><b>Yeast</b><span class="nd">None detected</span></div>
           <div class="labrow"><b>Mold</b><span class="nd">None detected</span></div>
           <div class="labcard__foot">
-            <a class="labcard__coa" href="https://cdn.shopify.com/s/files/1/0735/1549/files/MAJU_Oregano_Oil_Capsules_-_Lot_2509134_-_Micros_-_JUL_25.png" target="_blank" rel="noopener">Open the full ARL Certificate of Analysis →</a><br>
+            <button class="labcard__coa" id="coaOpenBtn">Open the full ARL Certificate of Analysis →</button><br>
             <a class="labcard__coa" style="font-size:.76rem" href="https://majusuperfoods.com/pages/certificates-of-analysis" target="_blank" rel="noopener">All batch COAs, every product →</a>
           </div>
         </div>
@@ -466,7 +474,7 @@ footer .wrap>p{margin-bottom:10px}
 <section class="lazy-section" style="padding-top:0">
   <div class="wrap">
     <p class="kicker">Where it comes from</p>
-    <h2>Wild-harvested. Cold-pressed.<br>Lab-tested every batch.</h2>
+    <h2 style="font-size:1.3rem"><span class="nowrap">Wild-harvested. Cold-pressed.</span><br>Lab-tested every batch.</h2>
     <div class="slider src-slider" style="margin-top:12px" aria-label="Sourcing story">
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/first-img.png?v=1777570694&width=800" alt="Wild oregano growing in the Taurus Mountains of Turkey" width="800" height="500" loading="lazy"><div class="pad"><h3>Wild-harvested oregano</h3><p>Hand-picked in the Taurus Mountains of Turkey, grown by sun and rainfall with no intervention.</p></div></div>
       <div class="card"><img src="https://majusuperfoods.com/cdn/shop/files/cold-press.png?v=1780681656&width=800" alt="Cold-press extraction" width="800" height="500" loading="lazy"><div class="pad"><h3>Cold-pressed</h3><p>No heat and no chemical solvents like hexane, so the compounds the lab measures stay intact.</p></div></div>
@@ -598,7 +606,7 @@ footer .wrap>p{margin-bottom:10px}
     <p class="kicker" style="color:var(--gold)">Ready when you are</p>
     <h2>Add the overlooked one to your routine</h2>
     <p class="offer-recap">Buy 2, Get 1 Free at $49 today · 60-day money-back guarantee · free shipping</p>
-    <button class="btn btn--gold" data-scroll="#buybox" style="max-width:340px;margin-left:auto;margin-right:auto">Try today &rarr;</button>
+    <button class="btn btn--gold" data-scroll="#buybox" style="max-width:340px;margin-left:auto;margin-right:auto">Try Maju today &rarr;</button>
   </div>
 </section>
 
@@ -678,10 +686,16 @@ labcard.querySelector('.labcard__head').addEventListener('click', function(){
   var open = labcard.classList.toggle('open');
   this.setAttribute('aria-expanded', open);
 });
-// Grüns-style inline card: pop up the actual lab report photo
+// Lab report popup: opens from the inline ARL card AND the link inside the dark lab section
 var coaModal = document.getElementById('coaModal');
 document.getElementById('labchip').addEventListener('click', function(){ coaModal.classList.add('open'); });
+document.getElementById('coaOpenBtn').addEventListener('click', function(){ coaModal.classList.add('open'); });
 coaModal.addEventListener('click', function(){ coaModal.classList.remove('open'); });
+
+// Mid-page CTA labels alternate: Get started / Try Maju today
+document.querySelectorAll('.cta-row .btn').forEach(function(b, i){
+  b.innerHTML = (i % 2 === 0 ? 'Get started' : 'Try Maju today') + ' &rarr;';
+});
 
 // Grüns-style thumbnails: built from the slides, click jumps, active syncs on swipe
 var track = document.querySelector('.gallery__track');
@@ -725,6 +739,7 @@ document.querySelectorAll('.slider, .gallery__track').forEach(function(el){
   el.addEventListener('pointerdown', function(e){
     if (e.pointerType !== 'mouse') return;
     down = true; moved = false; startX = e.clientX; startL = el.scrollLeft;
+    el.classList.add('dragging'); // disable snap immediately so the grab feels direct
   });
   window.addEventListener('pointermove', function(e){
     if (!down) return;
