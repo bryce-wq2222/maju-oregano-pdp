@@ -75,6 +75,14 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .gallery__dots span{width:7px;height:7px;border-radius:50%;background:var(--line)}
 .gallery__dots span.on{background:var(--bronze)}
 
+/* Grüns-style inline lab card (under gallery) */
+.labchip{display:flex;align-items:center;gap:12px;width:calc(100% - 32px);margin:6px 16px 4px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:13px 16px;text-align:left;cursor:pointer}
+.labchip svg{width:30px;height:30px;flex:none;stroke:var(--bronze)}
+.labchip .l1{font-size:.85rem;font-weight:600;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.labchip .datechip{background:var(--cream);border:1px solid var(--gold);font-size:.68rem;font-weight:700;letter-spacing:.04em;padding:2px 8px;border-radius:6px}
+.labchip .l2{font-size:.82rem;font-weight:600;color:#5c564d;margin-top:2px}
+.labchip .l2 span{color:var(--ink)}
+
 /* buybox */
 .buybox{padding:20px 0 10px}
 .offers{display:grid;gap:10px}
@@ -261,6 +269,15 @@ footer .wrap>p{margin-bottom:10px}
   </div>
   <div class="gallery__dots" aria-hidden="true"></div>
 </div>
+
+<!-- Grüns-style lab card (hard-coded): sits under the gallery, opens the full lab section -->
+<button class="labchip" id="labchip" aria-controls="labbody">
+  <svg viewBox="0 0 24 24" fill="none" stroke-width="2" aria-hidden="true"><path d="M3 12l4 4L15 8"/><path d="M9 12l4 4L21 8"/></svg>
+  <span>
+    <span class="l1">Tested by ARL Labs in <span class="datechip">SEP 2025</span></span>
+    <span class="l2"><span>8 substances tested for quality</span> &rarr;</span>
+  </span>
+</button>
 </div>
 
 <!-- 2. stars + proof line ABOVE title · 3. product title · chips -->
@@ -378,8 +395,8 @@ footer .wrap>p{margin-bottom:10px}
 <!-- UGC — 3-up slider -->
 <section class="ugc lazy-section">
   <div class="wrap">
-    <p class="kicker">Real people, real routines</p>
-    <h2>Don’t just take our word for it</h2>
+    <!-- Grüns pattern: "Join 1M+ others filling nutrition gaps". "fixing their gut" is not usable (fix = banned verb). -->
+    <h2>Join 32,000+ others supporting their gut</h2>
     <div class="slider" style="margin-top:12px" aria-label="Customer videos">
       <div class="ugc__tile">[UGC_CLIP_1]<span class="ad">#ad</span></div>
       <div class="ugc__tile">[UGC_CLIP_2]</div>
@@ -629,6 +646,12 @@ var labcard = document.getElementById('labcard');
 labcard.querySelector('.labcard__head').addEventListener('click', function(){
   var open = labcard.classList.toggle('open');
   this.setAttribute('aria-expanded', open);
+});
+// Grüns-style inline card: scroll to the lab section and open it
+document.getElementById('labchip').addEventListener('click', function(){
+  labcard.classList.add('open');
+  labcard.querySelector('.labcard__head').setAttribute('aria-expanded', 'true');
+  labcard.scrollIntoView({ behavior: 'smooth', block: 'center' });
 });
 
 var track = document.querySelector('.gallery__track');
