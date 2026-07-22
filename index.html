@@ -49,19 +49,14 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .slider::-webkit-scrollbar{display:none}
 .slider>*{scroll-snap-align:start;flex:none}
 
-/* ===== top bar (NOT sticky, no buy button) ===== */
-.hdr{background:#fff;border-bottom:1px solid var(--line)}
-.hdr__in{max-width:var(--maxw);margin:0 auto;display:flex;align-items:center;justify-content:center;padding:10px 16px}
-.hdr__logo{height:26px;width:auto}
-
-/* proof strip */
+/* proof strip (announcement bar) */
 .proofstrip{background:var(--ink);color:var(--cream);text-align:center;padding:9px 12px;font-size:.82rem;font-weight:600}
 .proofstrip strong{color:var(--yellow)}
 
-/* ===== title block (ABOVE gallery) ===== */
-.hero{padding:18px 0 12px}
-.hero__rating{display:inline-flex;align-items:center;gap:8px;font-size:.88rem;font-weight:600;text-decoration:none;min-height:44px}
-.hero h1{font-size:1.5rem;margin:2px 0 8px;text-wrap:balance}
+/* ===== title block (below gallery, ED order) ===== */
+.hero{padding:14px 0 6px}
+.hero__rating{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:600;text-decoration:none;min-height:44px}
+.hero h1{font-size:1.5rem;margin:0 0 2px;text-wrap:balance}
 .hero .sub{font-size:.95rem}
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .chip{background:var(--cream);border:1px solid var(--gold);font-size:.78rem;font-weight:600;padding:7px 12px;border-radius:999px}
@@ -112,10 +107,18 @@ h2{font-size:1.45rem;margin-bottom:8px}
 
 .lazy-section{content-visibility:auto;contain-intrinsic-size:auto 420px}
 
-/* press — third section, like Everyday Dose */
-.press{background:#fff;text-align:center;padding:24px 0}
-.press__logos{display:flex;justify-content:center;align-items:center;gap:26px;flex-wrap:wrap;margin-top:10px}
-.press__logos img{height:22px;width:auto;opacity:.65}
+/* press — static heading + auto-scrolling logo marquee (ED style) */
+.press{background:#fff;text-align:center;padding:22px 0}
+.press__viewport{overflow:hidden;margin-top:12px}
+.press__track{display:flex;align-items:center;gap:48px;width:max-content;animation:mq 20s linear infinite}
+.press__track img{height:22px;width:auto;opacity:.65}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+/* ED-style: centered section headers below the fold */
+.lazy-section .kicker,.lazy-section>.wrap>h2{text-align:center}
+.lazy-section>.wrap>.sub{text-align:center}
+.slider{cursor:grab}
+.slider.dragging{cursor:grabbing;scroll-snap-type:none}
 
 /* UGC — 3-up slider */
 .ugc{background:#fff}
@@ -218,7 +221,8 @@ footer .wrap>p{margin-bottom:10px}
 @media(min-width:900px){
   :root{--maxw:1060px}
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:start;max-width:var(--maxw);margin:0 auto;padding:24px 16px 0}
-  .hero-grid .gallery{border-radius:18px;overflow:hidden;position:sticky;top:20px}
+  .hero-grid>div:first-child{position:sticky;top:20px}
+  .hero-grid .gallery{border-radius:18px;overflow:hidden}
   .hero-grid .wrap{padding:0}
   section .wrap{max-width:720px}
   .rev-slider .testi{width:300px}
@@ -230,29 +234,12 @@ footer .wrap>p{margin-bottom:10px}
 </head>
 <body>
 
-<!-- top bar: logo only, not sticky -->
-<header class="hdr"><div class="hdr__in"><img class="hdr__logo" src="https://majusuperfoods.com/cdn/shop/t/150/assets/custom-header-variation-logo-2b116d.png" alt="Maju Superfoods" width="96" height="26"></div></header>
-
+<!-- announcement strip only — no header bar (Everyday Dose pattern) -->
 <div class="proofstrip"><strong>1,000,000+ orders</strong> shipped since 2015 &nbsp;·&nbsp; 2-day &amp; next-day shipping</div>
 
 <div class="hero-grid">
 <div>
-<!-- title + rating ABOVE the photos -->
-<section class="hero wrap">
-  <a class="hero__rating" href="#buybox"><span class="stars" aria-hidden="true">★★★★★</span> 4.7 · 23 verified reviews</a>
-  <!-- A/B variants: "Everyone's talking about probiotics. Almost no one's talking about this." / "It's not your probiotic's job — it's this" -->
-  <h1>Beyond probiotics: the <span class="nowrap">gut&#8209;support oil</span> most routines overlook</h1>
-  <p class="sub">High-carvacrol oregano oil + black seed oil in one daily softgel — third-party tested for purity, no taste, no protocol.</p>
-  <div class="chips" aria-label="Product highlights">
-    <!-- "Up to 90%" = the site's established claim (LP body, ads, CV90 SKU). Swap to measured GC number when the assay lands. -->
-    <span class="chip">Up to 90% carvacrol</span>
-    <span class="chip">3rd-party tested (ARL)</span>
-    <span class="chip">2 softgels daily</span>
-    <span class="chip">Non-GMO</span>
-  </div>
-</section>
-
-<!-- gallery (below title on mobile, left column on desktop) -->
+<!-- 1. product photo carousel FIRST -->
 <div class="gallery" id="gallery">
   <div class="gallery__track" aria-label="Product photos" role="region" tabindex="0">
     <div class="gallery__slide"><img src="https://majusuperfoods.com/cdn/shop/files/1st-img.jpg?v=1780676879&width=800" alt="Maju Oregano Oil + Black Seed softgels bottle on a clean background" width="800" height="800" fetchpriority="high"></div>
@@ -264,10 +251,25 @@ footer .wrap>p{margin-bottom:10px}
   </div>
   <div class="gallery__dots" aria-hidden="true"></div>
 </div>
+
+<!-- 2. product title · 3. stars + review count one line · 4. subhead -->
+<section class="hero wrap">
+  <!-- A/B variants: "Everyone's talking about probiotics. Almost no one's talking about this." / "It's not your probiotic's job — it's this" -->
+  <h1>Beyond probiotics: the <span class="nowrap">gut&#8209;support oil</span> most routines overlook</h1>
+  <a class="hero__rating" href="#reviews"><span class="stars" aria-hidden="true">★★★★★</span>&nbsp;4.7&nbsp;·&nbsp;23 reviews</a>
+  <p class="sub">High-carvacrol oregano oil + black seed oil in one daily softgel — third-party tested for purity, no taste, no protocol.</p>
+  <div class="chips" aria-label="Product highlights">
+    <!-- "Up to 90%" = the site's established claim (LP body, ads, CV90 SKU). Swap to measured GC number when the assay lands. -->
+    <span class="chip">Up to 90% carvacrol</span>
+    <span class="chip">3rd-party tested (ARL)</span>
+    <span class="chip">2 softgels daily</span>
+    <span class="chip">Non-GMO</span>
+  </div>
+</section>
 </div>
 
 <div>
-<!-- offer picker + ATC -->
+<!-- 5. buy box -->
 <section class="buybox wrap" id="buybox">
   <div class="offers" role="radiogroup" aria-label="Choose your offer">
     <button class="offer" role="radio" aria-checked="false" aria-pressed="false" data-offer="buy1">
@@ -335,14 +337,23 @@ footer .wrap>p{margin-bottom:10px}
   </div>
 </div>
 
-<!-- press row — third section, Everyday Dose position. Logos only: no publisher quotes exist on file. -->
+<!-- press marquee — static "As seen on" heading, auto-scrolling logos (ED style).
+     NOTE: NBC is NOT on Maju's site or in the theme — no substantiation found. Slot is
+     commented out below; enable ONLY if the client confirms real NBC coverage. -->
 <section class="press lazy-section">
-  <div class="wrap">
-    <p class="kicker">As seen on</p>
-    <div class="press__logos">
+  <p class="kicker">As seen on</p>
+  <div class="press__viewport" aria-label="Press mentions">
+    <div class="press__track">
+      <!-- set 1 -->
       <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="Chicago Tribune" width="150" height="24" loading="lazy">
       <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="BuzzFeed" width="120" height="24" loading="lazy">
       <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="Zulily" width="100" height="24" loading="lazy">
+      <!-- <img src="[NBC_LOGO_URL_PENDING_SUBSTANTIATION]" alt="NBC" width="60" height="24" loading="lazy"> -->
+      <!-- set 2 (duplicate for seamless loop) -->
+      <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="" aria-hidden="true" width="150" height="24" loading="lazy">
+      <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="" aria-hidden="true" width="120" height="24" loading="lazy">
+      <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="" aria-hidden="true" width="100" height="24" loading="lazy">
+      <!-- <img src="[NBC_LOGO_URL_PENDING_SUBSTANTIATION]" alt="" aria-hidden="true" width="60" height="24" loading="lazy"> -->
     </div>
   </div>
 </section>
@@ -610,6 +621,27 @@ document.querySelectorAll('[data-scroll]').forEach(function(b){
   b.addEventListener('click', function(){
     document.querySelector(b.dataset.scroll).scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
+});
+
+// Drag-to-scroll for sliders + gallery (desktop mouse can't scroll hidden-scrollbar
+// containers otherwise; touch keeps native behavior)
+document.querySelectorAll('.slider, .gallery__track').forEach(function(el){
+  var down = false, moved = false, startX = 0, startL = 0;
+  el.addEventListener('pointerdown', function(e){
+    if (e.pointerType !== 'mouse') return;
+    down = true; moved = false; startX = e.clientX; startL = el.scrollLeft;
+  });
+  window.addEventListener('pointermove', function(e){
+    if (!down) return;
+    var dx = e.clientX - startX;
+    if (Math.abs(dx) > 4) { moved = true; el.classList.add('dragging'); }
+    if (moved) { el.scrollLeft = startL - dx; e.preventDefault(); }
+  });
+  window.addEventListener('pointerup', function(){
+    if (!down) return;
+    down = false; el.classList.remove('dragging');
+  });
+  el.addEventListener('click', function(e){ if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
 });
 </script>
 </body>
