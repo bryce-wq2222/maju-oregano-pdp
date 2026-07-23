@@ -58,7 +58,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .proofstrip strong{color:var(--yellow)}
 
 /* ===== title block (below gallery, ED order) ===== */
-.hero{padding-top:10px;padding-bottom:4px} /* vertical only — .wrap on same element keeps the gutter */
+.hero{padding-top:10px;padding-bottom:0} /* vertical only — .wrap on same element keeps the gutter */
 .hero__rating{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:600;text-decoration:none;min-height:44px}
 .hero h1{font-size:1.5rem;margin:0 0 2px;text-wrap:balance}
 .hero .sub{font-size:.95rem}
@@ -95,7 +95,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .labchip .l2 span{color:var(--ink)}
 
 /* buybox */
-.buybox{padding-top:16px;padding-bottom:10px}
+.buybox{padding-top:12px;padding-bottom:10px} /* chips→first tier matches the 12px rhythm */
 .offers{display:grid;gap:12px} /* matches title→pills gap */
 .offer{position:relative;display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:var(--radius);padding:14px;background:#fff;text-align:left;width:100%;min-height:72px}
 .offer[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
@@ -104,7 +104,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .offer[aria-pressed="true"] .offer__radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink)}
 .offer__name{font-weight:700;font-size:.95rem}
 .offer__pill{background:#E4F3E9;color:var(--ok);font-size:.64rem;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;font-style:normal;white-space:nowrap;vertical-align:1px}
-.offer__meta{font-size:.75rem;color:#6b6355}
+.offer__meta{font-size:.7rem;color:#6b6355;white-space:nowrap}
 .offer__meta b{color:var(--ok);white-space:nowrap}
 .offer__price{margin-left:auto;text-align:right;flex:none}
 .offer__now{font-weight:700;font-size:1.05rem}
@@ -151,6 +151,8 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .ugc{background:#fff}
 .ugc__tile{width:31%;min-width:112px;aspect-ratio:9/14;border-radius:10px;background:var(--cream);display:grid;place-items:center;text-align:center;font-size:.62rem;font-weight:600;color:var(--bronze);padding:6px;position:relative}
 .ugc__tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px}
+/* Grüns-style topic chip at the top of each clip */
+.ugc__topic{position:absolute;top:8px;left:8px;background:#fff;color:var(--ink);font-size:.58rem;font-weight:700;padding:3px 9px;border-radius:999px;z-index:1;pointer-events:none;box-shadow:0 1px 4px rgba(44,41,38,.18)}
 /* Grüns-style caption label over each clip */
 .ugc__label{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 8px;background:linear-gradient(transparent,rgba(33,30,27,.78));color:#fff;font-size:.6rem;font-weight:600;text-align:left;border-radius:0 0 10px 10px;line-height:1.3;pointer-events:none;z-index:1}
 .ugc__label b{display:block;font-size:.66rem}
@@ -160,6 +162,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .lab .kicker{color:var(--gold)}
 .lab h2{color:#fff}
 .lab .sub{color:#CBC2AB}
+.lab-l h2,.lab-l .sub{text-align:center}
 .labcard{margin-top:18px;background:#37332E;border:1px solid #4A453D;border-radius:18px;overflow:hidden}
 .labcard__head{width:100%;display:flex;align-items:center;gap:14px;padding:18px 16px;text-align:left;color:inherit}
 .labcard__seal{width:46px;height:46px;flex:none;border-radius:50%;background:#fff;display:grid;place-items:center;overflow:hidden}
@@ -270,7 +273,7 @@ footer .wrap>p{margin-bottom:10px}
   .gcol,.bcol,.hero-grid .hero{min-width:0}
   .hero-grid .wrap{padding:0;max-width:none}
   .hero-grid .slider{margin:0;padding:4px 0 8px}
-  .buybox{padding-top:8px}
+  .buybox{padding-top:12px}
   /* all sections align to the same width as the buy-box grid */
   section .wrap{max-width:var(--maxw);padding:0 24px}
   .gallery__thumbs{justify-content:center}
@@ -282,6 +285,15 @@ footer .wrap>p{margin-bottom:10px}
   /* ED hard-line pass: narrow reading sections, wide visual sections all on the same centered line */
   .faq .wrap{max-width:760px}
   .ugc .slider,.src-slider{justify-content:center}
+  /* lab: copy left, compact open report right */
+  .lab-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:44px;align-items:center}
+  .lab-l h2{text-align:left;font-size:1.7rem}
+  .lab-l .sub{text-align:left}
+  .lab-r .labcard{margin-top:0}
+  .lab .labrow{padding:7px 14px;font-size:.78rem}
+  .lab .labcard__head{padding:11px 14px}
+  .lab .labcard__foot{padding:10px 14px}
+  .lab .labrow--hero .val{font-size:.95rem}
   .cmp-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center}
   .cmp-intro{text-align:left}
   .cmp-intro h2{font-size:2rem;text-align:left}
@@ -358,13 +370,13 @@ footer .wrap>p{margin-bottom:10px}
     <button class="offer" role="radio" aria-checked="true" aria-pressed="true" data-offer="buy2get1">
       <span class="offer__badge">Most popular</span>
       <span class="offer__radio" aria-hidden="true"></span>
-      <span><span class="offer__name">Buy 2, Get 1 Free<em class="offer__pill">Save 59%</em></span><br><span class="offer__meta">90-day supply · <b>FREE shipping</b></span></span>
+      <span><span class="offer__name">Buy 2, Get 1 Free<em class="offer__pill">Save 59%</em></span><br><span class="offer__meta">90-day supply · <b>FREE shipping today</b></span></span>
       <span class="offer__price"><span class="offer__now">$49</span><span class="offer__was">$119.85</span><br><span class="offer__day">$0.54/day</span></span>
     </button>
     <button class="offer" role="radio" aria-checked="false" aria-pressed="false" data-offer="buy3get2">
       <span class="offer__badge" style="background:var(--cream)">Best value</span>
       <span class="offer__radio" aria-hidden="true"></span>
-      <span><span class="offer__name">Buy 3, Get 2 Free<em class="offer__pill">Save 63%</em></span><br><span class="offer__meta">150-day supply · <b>FREE shipping</b></span></span>
+      <span><span class="offer__name">Buy 3, Get 2 Free<em class="offer__pill">Save 63%</em></span><br><span class="offer__meta">150-day supply · <b>FREE shipping today</b></span></span>
       <span class="offer__price"><span class="offer__now">$74</span><span class="offer__was">$199.75</span><br><span class="offer__day">$0.49/day</span></span>
     </button>
   </div>
@@ -455,13 +467,13 @@ footer .wrap>p{margin-bottom:10px}
     <!-- Grüns pattern: "Join 1M+ others filling nutrition gaps". "fixing their gut" is not usable (fix = banned verb). -->
     <h2>Join 32,000+ others supporting their gut</h2>
     <div class="slider" style="margin-top:12px" aria-label="Customer videos">
-      <!-- Real creator clips. Autoplay muted when in view, tap for sound.
+      <!-- Real creator clips: Katrina → Stephen → Farah → Lauren (Nancy cut: same hook as Stephen).
+           Grüns label style: topic chip top, name bottom. Autoplay muted in view, tap for sound.
            FTC: if a creator was incentivized, #ad must be burned into the clip itself. -->
-      <div class="ugc__tile"><video src="ugc/ugc-farrah.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Farrah S.</b>Why I switched</span></div>
-      <div class="ugc__tile"><video src="ugc/ugc-lauren.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Lauren S.</b>My daily routine</span></div>
-      <div class="ugc__tile"><video src="ugc/ugc-katrina.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Katrina B.</b>No taste, no burn</span></div>
-      <div class="ugc__tile"><video src="ugc/ugc-stephen.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Stephen D.</b>3 months in</span></div>
-      <div class="ugc__tile"><video src="ugc/ugc-nancy.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Nancy W.</b>My honest take</span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-katrina.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__topic">No taste, no burn</span><span class="ugc__label"><b>Katrina B.</b></span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-stephen.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__topic">3 months in</span><span class="ugc__label"><b>Stephen D.</b></span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-farrah.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__topic">Why I switched</span><span class="ugc__label"><b>Farrah S.</b></span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-lauren.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__topic">My daily routine</span><span class="ugc__label"><b>Lauren S.</b></span></div>
     </div>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
@@ -470,8 +482,13 @@ footer .wrap>p{margin-bottom:10px}
 <!-- lab-proof centerpiece -->
 <section class="lab lazy-section">
   <div class="wrap">
-    <h2>Most brands say “pure.”<br>We show you the lab report.</h2>
-    <p class="sub">Every batch goes to an independent, ISO 17025-accredited lab (ARL).</p>
+    <!-- desktop: copy left, compact auto-opened report right -->
+    <div class="lab-grid">
+    <div class="lab-l">
+      <h2>Most brands say “pure.”<br>We show you the lab report.</h2>
+      <p class="sub">Every batch goes to an independent, ISO 17025-accredited lab (ARL).</p>
+    </div>
+    <div class="lab-r">
     <div class="labcard" id="labcard">
       <button class="labcard__head" aria-expanded="false" aria-controls="labbody">
         <span class="labcard__seal"><img src="arl-logo.png" alt="" width="34" height="26" style="width:34px;height:auto"></span>
@@ -498,7 +515,9 @@ footer .wrap>p{margin-bottom:10px}
       </div>
     </div>
     <p class="disclaimer">Testing by Analytical Resource Laboratories, ISO/IEC 17025 accredited (#77504).</p>
-    <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
+    </div>
+    </div><!-- /lab-grid -->
+    <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Get started &rarr;</button></div>
   </div>
 </section>
 
@@ -538,7 +557,6 @@ footer .wrap>p{margin-bottom:10px}
       </table>
     </div>
     </div><!-- /cmp-grid -->
-    <p class="disclaimer" style="margin-top:10px">This product is not intended to diagnose, treat, cure or prevent any disease.</p>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
 </section>
@@ -727,6 +745,11 @@ labcard.querySelector('.labcard__head').addEventListener('click', function(){
   var open = labcard.classList.toggle('open');
   this.setAttribute('aria-expanded', open);
 });
+// desktop: report starts open (compact rows keep it inside the fold)
+if (matchMedia('(min-width:900px)').matches) {
+  labcard.classList.add('open');
+  labcard.querySelector('.labcard__head').setAttribute('aria-expanded', 'true');
+}
 // Lab report popup: opens from the inline ARL card AND the link inside the dark lab section
 var coaModal = document.getElementById('coaModal');
 document.getElementById('labchip').addEventListener('click', function(){ coaModal.classList.add('open'); });
