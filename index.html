@@ -752,11 +752,6 @@ labcard.querySelector('.labcard__head').addEventListener('click', function(){
   var open = labcard.classList.toggle('open');
   this.setAttribute('aria-expanded', open);
 });
-// desktop: report starts open (compact rows keep it inside the fold)
-if (matchMedia('(min-width:900px)').matches) {
-  labcard.classList.add('open');
-  labcard.querySelector('.labcard__head').setAttribute('aria-expanded', 'true');
-}
 // Lab report popup: opens from the inline ARL card AND the link inside the dark lab section
 var coaModal = document.getElementById('coaModal');
 document.getElementById('labchip').addEventListener('click', function(){ coaModal.classList.add('open'); });
