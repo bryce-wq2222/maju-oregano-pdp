@@ -27,7 +27,16 @@ body{font-family:'Poppins',system-ui,sans-serif;background:#211E1B;min-height:10
 body[data-view="mobile"] .phone{display:block}
 body[data-view="desktop"] .desk{display:block}
 .hint{text-align:center;font-size:.75rem;color:#8B8271;padding-bottom:30px}
-@media(max-width:520px){.phone{border-radius:0;padding:0;width:100%}.phone .screen{border-radius:0}.phone iframe{width:100%;height:85vh}}
+/* On an actual phone: no bezel, no padding — the page exactly as an iPhone renders it */
+@media(max-width:520px){
+  .bar{padding:8px}
+  .stage{padding:0}
+  .phone{border-radius:0;padding:0;width:100%;max-width:none;box-shadow:none;background:none}
+  .phone .notch{display:none}
+  .phone .screen{border-radius:0}
+  .phone iframe{width:100vw;height:calc(100vh - 52px);min-height:0}
+  .hint{display:none}
+}
 </style>
 </head>
 <body data-view="mobile">

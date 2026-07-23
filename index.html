@@ -27,7 +27,7 @@
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{font-family:'Poppins',system-ui,sans-serif;font-size:16px;line-height:1.55;color:var(--ink);background:var(--bg)}
+body{font-family:'Poppins',system-ui,sans-serif;font-size:16px;line-height:1.55;color:var(--ink);background:var(--bg);overflow-x:hidden}
 img{display:block;max-width:100%;height:auto;-webkit-user-drag:none;user-select:none}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 a{color:inherit}
@@ -102,6 +102,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .offer__badge{position:absolute;top:-10px;left:14px;background:var(--yellow);font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
 .offer__radio{width:20px;height:20px;border-radius:50%;border:2px solid var(--bronze);flex:none;display:grid;place-items:center}
 .offer[aria-pressed="true"] .offer__radio::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--ink)}
+.offer__radio+span{flex:1;min-width:0;overflow:hidden} /* text column may shrink; nowrap meta can't push the card wide */
 .offer__name{font-weight:700;font-size:.95rem}
 .offer__pill{background:#E4F3E9;color:var(--ok);font-size:.64rem;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;font-style:normal;white-space:nowrap;vertical-align:1px}
 .offer__meta{font-size:.7rem;color:#6b6355;white-space:nowrap}
@@ -151,8 +152,12 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .ugc{background:#fff}
 .ugc__tile{width:31%;min-width:112px;aspect-ratio:9/14;border-radius:10px;background:var(--cream);display:grid;place-items:center;text-align:center;font-size:.62rem;font-weight:600;color:var(--bronze);padding:6px;position:relative}
 .ugc__tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px}
-/* Grüns-style topic chip at the top of each clip */
-.ugc__topic{position:absolute;top:8px;left:8px;background:#fff;color:var(--ink);font-size:.58rem;font-weight:700;padding:3px 9px;border-radius:999px;z-index:1;pointer-events:none;box-shadow:0 1px 4px rgba(44,41,38,.18)}
+/* Grüns-style USP badge: top-center CAPS pill with 3D drop */
+.ugc__topic{position:absolute;top:10px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--ink);font-size:.58rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:5px 12px;border-radius:8px;z-index:1;pointer-events:none;box-shadow:0 3px 0 var(--bronze);white-space:nowrap}
+/* click-to-play (no autoplay — keeps the page fast). Grüns-style dark play button. */
+.ugc__play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:46px;height:34px;border-radius:8px;background:rgba(33,30,27,.85);display:grid;place-items:center;z-index:1;pointer-events:none;transition:opacity .2s}
+.ugc__play::before{content:"";display:block;width:0;height:0;border-left:12px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent;margin-left:3px}
+.ugc__tile.playing .ugc__play{opacity:0}
 /* Grüns-style caption label over each clip */
 .ugc__label{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 8px;background:linear-gradient(transparent,rgba(33,30,27,.78));color:#fff;font-size:.6rem;font-weight:600;text-align:left;border-radius:0 0 10px 10px;line-height:1.3;pointer-events:none;z-index:1}
 .ugc__label b{display:block;font-size:.66rem}
@@ -272,8 +277,9 @@ footer .wrap>p{margin-bottom:10px}
   .bcol{grid-column:2;grid-row:2}
   .gcol,.bcol,.hero-grid .hero{min-width:0}
   .hero-grid .wrap{padding:0;max-width:none}
+  .hero-grid .buybox{padding-top:20px} /* must come after the wrap reset or it gets zeroed */
   .hero-grid .slider{margin:0;padding:4px 0 8px}
-  .buybox{padding-top:12px}
+  .buybox{padding-top:20px} /* clear air between pills and the first tier */
   /* all sections align to the same width as the buy-box grid */
   section .wrap{max-width:var(--maxw);padding:0 24px}
   .gallery__thumbs{justify-content:center}
@@ -470,10 +476,10 @@ footer .wrap>p{margin-bottom:10px}
       <!-- Real creator clips: Katrina → Stephen → Farah → Lauren (Nancy cut: same hook as Stephen).
            Grüns label style: topic chip top, name bottom. Autoplay muted in view, tap for sound.
            FTC: if a creator was incentivized, #ad must be burned into the clip itself. -->
-      <div class="ugc__tile"><video src="ugc/ugc-katrina.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__topic">No taste, no burn</span><span class="ugc__label"><b>Katrina B.</b></span></div>
-      <div class="ugc__tile"><video src="ugc/ugc-stephen.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__topic">3 months in</span><span class="ugc__label"><b>Stephen D.</b></span></div>
-      <div class="ugc__tile"><video src="ugc/ugc-farrah.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__topic">Why I switched</span><span class="ugc__label"><b>Farrah S.</b></span></div>
-      <div class="ugc__tile"><video src="ugc/ugc-lauren.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__topic">My daily routine</span><span class="ugc__label"><b>Lauren S.</b></span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-katrina.mp4" loop playsinline preload="metadata"></video><span class="ugc__topic">No taste, no burn</span><span class="ugc__play" aria-hidden="true"></span><span class="ugc__label"><b>Katrina B.</b></span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-stephen.mp4" loop playsinline preload="metadata"></video><span class="ugc__topic">3 months in</span><span class="ugc__play" aria-hidden="true"></span><span class="ugc__label"><b>Stephen D.</b></span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-farrah.mp4" loop playsinline preload="metadata"></video><span class="ugc__topic">Why I switched</span><span class="ugc__play" aria-hidden="true"></span><span class="ugc__label"><b>Farrah S.</b></span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-lauren.mp4" loop playsinline preload="metadata"></video><span class="ugc__topic">My daily routine</span><span class="ugc__play" aria-hidden="true"></span><span class="ugc__label"><b>Lauren S.</b></span></div>
     </div>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
@@ -756,17 +762,21 @@ document.getElementById('labchip').addEventListener('click', function(){ coaModa
 document.getElementById('coaOpenBtn').addEventListener('click', function(){ coaModal.classList.add('open'); });
 coaModal.addEventListener('click', function(){ coaModal.classList.remove('open'); });
 
-// UGC videos: play muted while in view, pause off-screen, tap toggles sound
+// UGC videos: click-to-play only (no autoplay — page speed). One at a time, with sound.
 var ugcVids = document.querySelectorAll('.ugc__tile video');
-if (ugcVids.length) {
-  var vio = new IntersectionObserver(function(es){
-    es.forEach(function(e){ if (e.isIntersecting) { e.target.play().catch(function(){}); } else { e.target.pause(); } });
-  }, { threshold: .4 });
-  ugcVids.forEach(function(v){
-    vio.observe(v);
-    v.addEventListener('click', function(){ v.muted = !v.muted; });
+ugcVids.forEach(function(v){
+  v.addEventListener('click', function(){
+    if (v.paused) {
+      ugcVids.forEach(function(o){ if (o !== v) { o.pause(); o.closest('.ugc__tile').classList.remove('playing'); } });
+      v.muted = false;
+      v.play().catch(function(){});
+      v.closest('.ugc__tile').classList.add('playing');
+    } else {
+      v.pause();
+      v.closest('.ugc__tile').classList.remove('playing');
+    }
   });
-}
+});
 
 // Mid-page CTA labels alternate, starting with Try Maju today (buy box already says Get started)
 document.querySelectorAll('.cta-row .btn').forEach(function(b, i){
