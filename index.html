@@ -62,9 +62,9 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .hero__rating{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:600;text-decoration:none;min-height:44px}
 .hero h1{font-size:1.5rem;margin:0 0 2px;text-wrap:balance}
 .hero .sub{font-size:.95rem}
-.chips{display:flex;flex-wrap:nowrap;gap:6px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
+.chips{display:flex;flex-wrap:nowrap;gap:5px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
 .chips::-webkit-scrollbar{display:none}
-.chip{background:var(--cream);border:1px solid var(--gold);font-size:.68rem;font-weight:600;padding:5px 8px;border-radius:999px;white-space:nowrap}
+.chip{background:var(--cream);border:1px solid var(--gold);font-size:.64rem;font-weight:600;padding:4px 7px;border-radius:999px;white-space:nowrap}
 @media(min-width:900px){.chips{gap:12px}.chip{font-size:.78rem;padding:7px 12px}}
 
 /* gallery */
@@ -96,7 +96,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 
 /* buybox */
 .buybox{padding-top:16px;padding-bottom:10px}
-.offers{display:grid;gap:13px}
+.offers{display:grid;gap:12px} /* matches title→pills gap */
 .offer{position:relative;display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:var(--radius);padding:14px;background:#fff;text-align:left;width:100%;min-height:72px}
 .offer[aria-pressed="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
 .offer__badge{position:absolute;top:-10px;left:14px;background:var(--yellow);font-size:.68rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 10px;border-radius:999px}
@@ -112,7 +112,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .offer__day{font-size:.72rem;color:#6b6355;font-weight:600}
 .autodisc{display:flex;align-items:center;justify-content:center;gap:6px;font-size:.78rem;font-weight:600;color:var(--ok);margin-top:8px}
 .atc-note{font-size:.78rem;color:#6b6355;text-align:center;margin-top:10px}
-#atcBtn{margin-top:14px}
+#atcBtn{margin-top:12px}
 
 /* trust band — RIGHT below ATC */
 .truststrip{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:14px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
@@ -150,8 +150,10 @@ h2{font-size:1.45rem;margin-bottom:8px}
 /* UGC — 3-up slider */
 .ugc{background:#fff}
 .ugc__tile{width:31%;min-width:112px;aspect-ratio:9/14;border-radius:10px;background:var(--cream);display:grid;place-items:center;text-align:center;font-size:.62rem;font-weight:600;color:var(--bronze);padding:6px;position:relative}
+.ugc__tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border-radius:10px}
 /* Grüns-style caption label over each clip */
-.ugc__label{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 8px;background:linear-gradient(transparent,rgba(33,30,27,.78));color:#fff;font-size:.6rem;font-weight:600;text-align:left;border-radius:0 0 10px 10px;line-height:1.3}
+.ugc__label{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 8px;background:linear-gradient(transparent,rgba(33,30,27,.78));color:#fff;font-size:.6rem;font-weight:600;text-align:left;border-radius:0 0 10px 10px;line-height:1.3;pointer-events:none;z-index:1}
+.ugc__label b{display:block;font-size:.66rem}
 
 /* lab centerpiece */
 .lab{background:var(--ink);color:var(--cream)}
@@ -188,6 +190,8 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .lab .disclaimer{color:#8B8271;margin-top:14px}
 
 /* comparison — us-vs-them check table. Fully responsive, NO horizontal scroll. */
+.cmp-intro{text-align:center}
+.cmp-intro .sub{font-size:.92rem}
 .compare .scrollx{margin:14px 0 0}
 .cmp{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0}
 .cmp th,.cmp td{padding:10px 4px;text-align:center;border-bottom:1px solid var(--line);word-wrap:break-word}
@@ -211,7 +215,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .tf__cell span.d{font-size:.75rem;color:#5c564d;line-height:1.4;display:block;margin-top:3px}
 
 /* how to use — illustrated 3 steps */
-.howto{background:#fff}
+.howto{background:#fff;padding-top:10px}
 /* mobile: swipe carousel (like sourcing); desktop: 3-up grid (media query below) */
 .howto__steps{margin-top:16px}
 .howto__step{width:74%;max-width:300px;text-align:center;padding:14px 8px 16px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg)}
@@ -277,6 +281,11 @@ footer .wrap>p{margin-bottom:10px}
   .howto__step{width:auto}
   /* ED hard-line pass: narrow reading sections, wide visual sections all on the same centered line */
   .faq .wrap{max-width:760px}
+  .ugc .slider,.src-slider{justify-content:center}
+  .cmp-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center}
+  .cmp-intro{text-align:left}
+  .cmp-intro h2{font-size:2rem;text-align:left}
+  .cmp-intro .sub{text-align:left;font-size:1rem}
   .tf__grid{grid-template-columns:1fr 1.1fr;gap:44px;align-items:center}
   .tf__cells{grid-template-columns:1fr 1fr;gap:12px}
   .founder{max-width:720px;margin-left:auto;margin-right:auto;gap:22px;padding:22px;align-items:center}
@@ -446,13 +455,13 @@ footer .wrap>p{margin-bottom:10px}
     <!-- Grüns pattern: "Join 1M+ others filling nutrition gaps". "fixing their gut" is not usable (fix = banned verb). -->
     <h2>Join 32,000+ others supporting their gut</h2>
     <div class="slider" style="margin-top:12px" aria-label="Customer videos">
-      <!-- 5 clips, Grüns-style: 3 visible on load, swipe for the rest. Labels overlay each clip.
-           FTC: if a clip is from an incentivized creator, #ad must be burned into the clip itself. -->
-      <div class="ugc__tile">[UGC_CLIP_1]<span class="ugc__label">Why I switched</span></div>
-      <div class="ugc__tile">[UGC_CLIP_2]<span class="ugc__label">My daily routine</span></div>
-      <div class="ugc__tile">[UGC_CLIP_3]<span class="ugc__label">No taste, no burn</span></div>
-      <div class="ugc__tile">[UGC_CLIP_4]<span class="ugc__label">Opening the lab report</span></div>
-      <div class="ugc__tile">[UGC_CLIP_5]<span class="ugc__label">3 months in</span></div>
+      <!-- Real creator clips. Autoplay muted when in view, tap for sound.
+           FTC: if a creator was incentivized, #ad must be burned into the clip itself. -->
+      <div class="ugc__tile"><video src="ugc/ugc-farrah.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Farrah S.</b>Why I switched</span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-lauren.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Lauren S.</b>My daily routine</span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-katrina.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Katrina B.</b>No taste, no burn</span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-stephen.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Stephen D.</b>3 months in</span></div>
+      <div class="ugc__tile"><video src="ugc/ugc-nancy.mp4" muted loop playsinline preload="metadata"></video><span class="ugc__label"><b>Nancy W.</b>My honest take</span></div>
     </div>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
@@ -510,9 +519,13 @@ footer .wrap>p{margin-bottom:10px}
 <!-- comparison table — us vs them -->
 <section class="compare lazy-section">
   <div class="wrap">
-    <p class="kicker">The overlooked option</p>
-    <!-- "scientifically proven" is banned copy (compliance guide §4/§10) — this is the compliant version of that idea -->
-    <h2>The gut support you can actually verify.</h2>
+    <!-- ED layout: "Us vs. them" intro left, table right on desktop; stacked on mobile -->
+    <div class="cmp-grid">
+    <div class="cmp-intro">
+      <h2>Us vs. them</h2>
+      <!-- "scientifically proven" is banned copy (compliance guide §4/§10) — this is the compliant version -->
+      <p class="sub">The gut support you can actually verify.</p>
+    </div>
     <div class="scrollx">
       <!-- ED "US X THEM" simplicity: clean binary marks only, no explainer text in cells -->
       <table class="cmp">
@@ -524,6 +537,7 @@ footer .wrap>p{margin-bottom:10px}
         <tr><td>60-day money-back guarantee</td><td class="maju y">✓</td><td class="n">✗</td><td class="n">✗</td></tr>
       </table>
     </div>
+    </div><!-- /cmp-grid -->
     <p class="disclaimer" style="margin-top:10px">This product is not intended to diagnose, treat, cure or prevent any disease.</p>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
@@ -718,6 +732,18 @@ var coaModal = document.getElementById('coaModal');
 document.getElementById('labchip').addEventListener('click', function(){ coaModal.classList.add('open'); });
 document.getElementById('coaOpenBtn').addEventListener('click', function(){ coaModal.classList.add('open'); });
 coaModal.addEventListener('click', function(){ coaModal.classList.remove('open'); });
+
+// UGC videos: play muted while in view, pause off-screen, tap toggles sound
+var ugcVids = document.querySelectorAll('.ugc__tile video');
+if (ugcVids.length) {
+  var vio = new IntersectionObserver(function(es){
+    es.forEach(function(e){ if (e.isIntersecting) { e.target.play().catch(function(){}); } else { e.target.pause(); } });
+  }, { threshold: .4 });
+  ugcVids.forEach(function(v){
+    vio.observe(v);
+    v.addEventListener('click', function(){ v.muted = !v.muted; });
+  });
+}
 
 // Mid-page CTA labels alternate, starting with Try Maju today (buy box already says Get started)
 document.querySelectorAll('.cta-row .btn').forEach(function(b, i){
