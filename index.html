@@ -423,13 +423,19 @@ footer .wrap>p{margin-bottom:10px}
       <span class="wordmark wordmark--serif">The New York Times</span>
       <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="BuzzFeed" width="120" height="24" loading="lazy">
       <span class="wordmark">NBC</span>
+      <span class="wordmark wordmark--serif" style="letter-spacing:.02em">Daily Mail</span>
       <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="Zulily" width="100" height="24" loading="lazy">
+      <span class="wordmark wordmark--serif" style="font-style:italic">New York Post</span>
+      <span class="wordmark">THE DAILY BEAST</span>
       <!-- set 2 (duplicate for seamless loop) -->
       <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="" aria-hidden="true" width="150" height="24" loading="lazy">
       <span class="wordmark wordmark--serif" aria-hidden="true">The New York Times</span>
       <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="" aria-hidden="true" width="120" height="24" loading="lazy">
       <span class="wordmark" aria-hidden="true">NBC</span>
+      <span class="wordmark wordmark--serif" aria-hidden="true" style="letter-spacing:.02em">Daily Mail</span>
       <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="" aria-hidden="true" width="100" height="24" loading="lazy">
+      <span class="wordmark wordmark--serif" aria-hidden="true" style="font-style:italic">New York Post</span>
+      <span class="wordmark" aria-hidden="true">THE DAILY BEAST</span>
     </div>
   </div>
 </section>
@@ -718,29 +724,82 @@ document.querySelectorAll('.cta-row .btn').forEach(function(b, i){
   b.innerHTML = (i % 2 === 0 ? 'Try Maju today' : 'Get started') + ' &rarr;';
 });
 
-// Grüns-style thumbnails: built from the slides, click jumps, active syncs on swipe
+// Gallery: infinite loop (clone slides at both ends, silent jump on the seams)
+// + ED-style flick on mouse drag. Thumbs map to the real slides only.
 var track = document.querySelector('.gallery__track');
 var thumbsBox = document.querySelector('.gallery__thumbs');
+var N = track.children.length;
 [].forEach.call(track.children, function(slide, i){
   var b = document.createElement('button');
   b.setAttribute('aria-label', 'Photo ' + (i + 1));
   var im = slide.querySelector('img');
   var t = document.createElement('img');
-  t.src = im.src.replace('width=800', 'width=160'); t.alt = ''; t.width = 56; t.height = 56; t.loading = 'lazy';
+  t.src = im.src.replace('width=800', 'width=160'); t.alt = ''; t.width = 56; t.height = 56; t.loading = 'lazy'; t.draggable = false;
   b.appendChild(t);
-  b.addEventListener('click', function(){ track.scrollTo({ left: track.clientWidth * i, behavior: 'smooth' }); });
+  b.addEventListener('click', function(){ track.scrollTo({ left: track.clientWidth * (i + 1), behavior: 'smooth' }); });
   thumbsBox.appendChild(b);
 });
 thumbsBox.children[0].className = 'on';
-var ticking = false;
+// clones: [last] 1 2 3 ... N [first]
+var firstClone = track.children[0].cloneNode(true);
+var lastClone = track.children[N - 1].cloneNode(true);
+firstClone.setAttribute('aria-hidden', 'true'); lastClone.setAttribute('aria-hidden', 'true');
+track.appendChild(firstClone);
+track.insertBefore(lastClone, track.children[0]);
+[].forEach.call(track.querySelectorAll('img'), function(i){ i.draggable = false; });
+function gW(){ return track.clientWidth; }
+track.scrollLeft = gW(); // start on real slide 1
+function gRaw(){ return Math.round(track.scrollLeft / gW()); }
+function gReal(){ return (gRaw() - 1 + N) % N; }
+var loopTimer = null, ticking = false;
 track.addEventListener('scroll', function(){
-  if (ticking) return; ticking = true;
-  requestAnimationFrame(function(){
-    var idx = Math.round(track.scrollLeft / track.clientWidth);
+  if (!ticking) { ticking = true; requestAnimationFrame(function(){
+    var idx = gReal();
     for (var i = 0; i < thumbsBox.children.length; i++) thumbsBox.children[i].className = i === idx ? 'on' : '';
     ticking = false;
-  });
+  }); }
+  clearTimeout(loopTimer);
+  loopTimer = setTimeout(function(){ // settled: fix the seams invisibly
+    var raw = gRaw();
+    if (raw === 0) track.scrollLeft = N * gW();
+    else if (raw === N + 1) track.scrollLeft = gW();
+  }, 90);
 }, { passive: true });
+window.addEventListener('resize', function(){ track.scrollLeft = (gReal() + 1) * gW(); });
+// mouse drag with flick-to-next
+(function(){
+  var down = false, moved = false, startX = 0, startL = 0, startRaw = 1;
+  track.addEventListener('pointerdown', function(e){
+    if (e.pointerType !== 'mouse') return;
+    e.preventDefault();
+    down = true; moved = false; startX = e.clientX; startL = track.scrollLeft; startRaw = gRaw();
+    track.classList.add('dragging');
+  });
+  window.addEventListener('pointermove', function(e){
+    if (!down) return;
+    var dx = e.clientX - startX;
+    if (Math.abs(dx) > 4) moved = true;
+    if (moved) { track.scrollLeft = startL - dx; e.preventDefault(); }
+  });
+  window.addEventListener('pointerup', function(e){
+    if (!down) return;
+    down = false;
+    if (moved) {
+      var dx = e.clientX - startX;
+      var target = startRaw + (dx < -40 ? 1 : dx > 40 ? -1 : 0);
+      track.scrollTo({ left: target * gW(), behavior: 'smooth' });
+      setTimeout(function(){
+        track.classList.remove('dragging');
+        var raw = gRaw(); // seam fix here too, in case the scroll listener missed it
+        if (raw === 0) track.scrollLeft = N * gW();
+        else if (raw === N + 1) track.scrollLeft = gW();
+      }, 420);
+    } else {
+      track.classList.remove('dragging');
+    }
+  });
+  track.addEventListener('click', function(e){ if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+})();
 
 // nutrition label modal
 var labelModal = document.getElementById('labelModal');
@@ -756,8 +815,8 @@ document.querySelectorAll('[data-scroll]').forEach(function(b){
 // Drag-to-scroll for sliders + gallery (desktop mouse can't scroll hidden-scrollbar
 // containers otherwise; touch keeps native behavior).
 // draggable=false is critical: native image-drag hijacks the pointer and kills the swipe.
-document.querySelectorAll('.slider img, .gallery__track img, .gallery__thumbs img').forEach(function(i){ i.draggable = false; });
-document.querySelectorAll('.slider, .gallery__track').forEach(function(el){
+document.querySelectorAll('.slider img').forEach(function(i){ i.draggable = false; });
+document.querySelectorAll('.slider').forEach(function(el){
   var down = false, moved = false, startX = 0, startL = 0;
   el.addEventListener('pointerdown', function(e){
     if (e.pointerType !== 'mouse') return;
