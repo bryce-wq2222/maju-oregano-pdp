@@ -241,11 +241,11 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .src-slider .card p{font-size:.82rem;color:#5c564d}
 
 /* founder / guarantee / faq / final */
-/* founder — photo one side, quote the other */
-.founder{display:flex;gap:16px;align-items:flex-start;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px}
-.founder__photo{width:88px;height:88px;border-radius:14px;background:var(--cream);flex:none;overflow:hidden}
-.founder__photo img{width:100%;height:100%;object-fit:cover}
-.founder p{font-size:.88rem}
+/* founder — bare on the tan page bg, photo one side, bold quote the other */
+.founder{display:flex;gap:16px;align-items:center;margin-top:14px}
+.founder__photo{width:96px;height:96px;border-radius:16px;flex:none;overflow:hidden}
+.founder__photo img{width:100%;height:100%;object-fit:cover;display:block}
+.founder p{font-size:.98rem;font-weight:600;line-height:1.5}
 .founder .who{font-size:.78rem;font-weight:600;color:#6b6355;margin-top:8px}
 /* guarantee — narrower card, medal seal */
 .guarantee{background:var(--cream);border-radius:18px;padding:26px 20px;text-align:center;margin-top:8px;max-width:560px;margin-left:auto;margin-right:auto}
@@ -302,13 +302,14 @@ footer .wrap>p{margin-bottom:10px}
   .lab .labrow--hero .val{font-size:.95rem}
   .cmp-grid{display:grid;grid-template-columns:.8fr 1.2fr;gap:44px;align-items:center}
   .cmp-intro{text-align:left}
-  .cmp-intro h2{font-size:2rem;text-align:left}
-  .cmp-intro .sub{text-align:left;font-size:1rem}
+  .cmp-intro h2{font-size:2.7rem;text-align:left;line-height:1.1;margin-bottom:12px}
+  .cmp-intro .sub{text-align:left;font-size:1.2rem;font-weight:600;color:var(--ink)}
+  .howto__steps{max-width:980px;margin-left:auto;margin-right:auto}
   .tf__grid{grid-template-columns:1fr 1.1fr;gap:44px;align-items:center}
   .tf__cells{grid-template-columns:1fr 1fr;gap:12px}
-  .founder{max-width:720px;margin-left:auto;margin-right:auto;gap:22px;padding:22px;align-items:center}
-  .founder__photo{width:120px;height:120px}
-  .founder p{font-size:.95rem}
+  .founder{max-width:720px;margin-left:auto;margin-right:auto;gap:26px;align-items:center}
+  .founder__photo{width:140px;height:140px}
+  .founder p{font-size:1.15rem}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
@@ -622,7 +623,7 @@ footer .wrap>p{margin-bottom:10px}
   <div class="wrap">
     <p class="kicker">A note from our founder</p>
     <div class="founder">
-      <div class="founder__photo"><img src="founder-ryan.jpg" alt="Ryan Rigney" width="64" height="64" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
+      <div class="founder__photo"><img src="founder-ryan.jpg" alt="Ryan Rigney" width="96" height="96" loading="lazy"></div>
       <div>
         <p>“Every batch is lab-tested for purity, and we publish the results. If a number can’t back the claim, we don’t make the claim.”</p>
         <p class="who">Ryan Rigney, Founder of Maju Superfoods</p>
