@@ -147,6 +147,9 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .lazy-section>.wrap>.sub{text-align:center}
 .slider,.gallery__track{cursor:grab}
 .slider.dragging,.gallery__track.dragging{cursor:grabbing;scroll-snap-type:none}
+.slider,.slider *,.gallery__track,.gallery__track *{user-select:none;-webkit-user-select:none}
+.oc-hdr2{position:sticky;top:0;z-index:70;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:center;min-height:54px;text-decoration:none}
+.oc-hdr2 img{height:34px;width:auto}
 
 /* UGC — 3-up slider */
 .ugc{background:#fff}
@@ -316,7 +319,9 @@ footer .wrap>p{margin-bottom:10px}
 </head>
 <body>
 
-<!-- announcement bar removed: the store's fixed header overlapped it on Shopify -->
+<!-- contained sticky header (theme header hidden on Shopify; this bar holds the logo INSIDE it) -->
+<a class="oc-hdr2" href="https://majusuperfoods.com/"><img src="https://majusuperfoods.com/cdn/shop/t/150/assets/custom-header-variation-logo-2b116d.png" alt="Maju Superfoods" width="120" height="34"></a>
+
 <div class="hero-grid">
 <div class="gcol">
 <!-- 1. product photo carousel FIRST -->
@@ -445,23 +450,15 @@ footer .wrap>p{margin-bottom:10px}
     <div class="press__track">
       <!-- NBC: substantiated — the brand's own cv90 listing image says "MAJU HAS BEEN SEEN ON Chicago Tribune | BuzzFeed | NBC".
            ⚠ NYT: still NOT substantiated anywhere. LAUNCH GATE: real coverage link or it comes out. -->
-      <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="Chicago Tribune" width="150" height="24" loading="lazy">
-      <img src="press/oc-press-nyt.png" alt="The New York Times" width="147" height="20" loading="lazy" style="height:20px">
-      <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="BuzzFeed" width="120" height="24" loading="lazy">
-      <img src="press/oc-press-nbc.png" alt="NBC" width="32" height="32" loading="lazy" style="height:32px">
-      <img src="press/oc-press-dailymail.png" alt="Daily Mail" width="97" height="22" loading="lazy">
-      <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="Zulily" width="100" height="24" loading="lazy">
-      <img src="press/oc-press-nypost.png" alt="New York Post" width="136" height="22" loading="lazy">
-      <img src="press/oc-press-dailybeast.png" alt="The Daily Beast" width="86" height="22" loading="lazy">
-      <!-- set 2 (duplicate for seamless loop) -->
-      <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="" aria-hidden="true" width="150" height="24" loading="lazy">
-      <img src="press/oc-press-nyt.png" alt="" aria-hidden="true" width="147" height="20" loading="lazy" style="height:20px">
-      <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="" aria-hidden="true" width="120" height="24" loading="lazy">
-      <img src="press/oc-press-nbc.png" alt="" aria-hidden="true" width="32" height="32" loading="lazy" style="height:32px">
-      <img src="press/oc-press-dailymail.png" alt="" aria-hidden="true" width="97" height="22" loading="lazy">
-      <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="" aria-hidden="true" width="100" height="24" loading="lazy">
-      <img src="press/oc-press-nypost.png" alt="" aria-hidden="true" width="136" height="22" loading="lazy">
-      <img src="press/oc-press-dailybeast.png" alt="" aria-hidden="true" width="86" height="22" loading="lazy">
+      <!-- single set; JS clones it until the loop is seamless at any width -->
+      <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="Chicago Tribune" width="150" height="24">
+      <img src="press/oc-press-nyt.png" alt="The New York Times" width="147" height="20" style="height:20px">
+      <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="BuzzFeed" width="120" height="24">
+      <img src="press/oc-press-nbc.png" alt="NBC" width="32" height="32" style="height:32px">
+      <img src="press/oc-press-dailymail.png" alt="Daily Mail" width="97" height="22">
+      <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="Zulily" width="100" height="24">
+      <img src="press/oc-press-nypost.png" alt="New York Post" width="136" height="22">
+      <img src="press/oc-press-dailybeast.png" alt="The Daily Beast" width="86" height="22">
     </div>
   </div>
 </section>
@@ -864,6 +861,19 @@ document.querySelectorAll('[data-scroll]').forEach(function(b){
     document.querySelector(b.dataset.scroll).scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 });
+
+// Endless press marquee: clone the set until it covers 2x any viewport, pace by px/sec
+var ptrack = document.querySelector('.press__track');
+if (ptrack) {
+  var setHTML = ptrack.innerHTML;
+  var setW = Math.max(ptrack.scrollWidth, 300) + 48;
+  var copies = 2 * Math.ceil(Math.max(window.innerWidth, 1200) / setW);
+  if (copies < 2) copies = 2;
+  var mhtml = '';
+  for (var ci = 0; ci < copies; ci++) mhtml += setHTML;
+  ptrack.innerHTML = mhtml;
+  ptrack.style.animationDuration = Math.max(16, Math.round((ptrack.scrollWidth / 2) / 55)) + 's';
+}
 
 // Drag-to-scroll for sliders + gallery (desktop mouse can't scroll hidden-scrollbar
 // containers otherwise; touch keeps native behavior).
