@@ -38,6 +38,10 @@ Replaces the current AI-ish sourcing cards. Licensed authentic stock is acceptab
 2. **With water, daily** — talent mid-sip with glass of water, bottle on counter in frame.
 3. **Stay consistent** — bottle sitting in the daily-routine zone: next to coffee maker / keys / morning setup.
 
+## C2. "Transform your mornings" section photo — 1 static, 1:1, ≥1600×1600
+
+Everyday Dose-style section image (their product-photo-left + benefits-right block). Bottle + two softgels + coffee cup on a morning kitchen counter, warm window light, shallow depth. No people needed (talent optional). Sits large on desktop next to the benefit grid, so it must hold up at ~600px wide.
+
 ## D. Small pieces
 
 - **OG / social share image** — 1200×630: hero bottle + "Third-party tested. Up to 90% carvacrol." on brand field.
