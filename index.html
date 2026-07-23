@@ -62,8 +62,10 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .hero__rating{display:inline-flex;align-items:center;gap:6px;font-size:.88rem;font-weight:600;text-decoration:none;min-height:44px}
 .hero h1{font-size:1.5rem;margin:0 0 2px;text-wrap:balance}
 .hero .sub{font-size:.95rem}
-.chips{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px}
-.chip{background:var(--cream);border:1px solid var(--gold);font-size:.78rem;font-weight:600;padding:7px 12px;border-radius:999px}
+.chips{display:flex;flex-wrap:nowrap;gap:6px;margin-top:12px;overflow-x:auto;scrollbar-width:none}
+.chips::-webkit-scrollbar{display:none}
+.chip{background:var(--cream);border:1px solid var(--gold);font-size:.68rem;font-weight:600;padding:5px 8px;border-radius:999px;white-space:nowrap}
+@media(min-width:900px){.chips{gap:12px}.chip{font-size:.78rem;padding:7px 12px}}
 
 /* gallery */
 .gallery{position:relative;background:#fff}
@@ -148,7 +150,8 @@ h2{font-size:1.45rem;margin-bottom:8px}
 /* UGC — 3-up slider */
 .ugc{background:#fff}
 .ugc__tile{width:31%;min-width:112px;aspect-ratio:9/14;border-radius:10px;background:var(--cream);display:grid;place-items:center;text-align:center;font-size:.62rem;font-weight:600;color:var(--bronze);padding:6px;position:relative}
-.ugc__tile span.ad{position:absolute;bottom:6px;right:8px;font-size:.6rem;background:rgba(44,41,38,.75);color:#fff;padding:1px 6px;border-radius:6px}
+/* Grüns-style caption label over each clip */
+.ugc__label{position:absolute;left:0;right:0;bottom:0;padding:18px 8px 8px;background:linear-gradient(transparent,rgba(33,30,27,.78));color:#fff;font-size:.6rem;font-weight:600;text-align:left;border-radius:0 0 10px 10px;line-height:1.3}
 
 /* lab centerpiece */
 .lab{background:var(--ink);color:var(--cream)}
@@ -184,12 +187,12 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .labcard__coa{display:inline-flex;align-items:center;gap:8px;font-size:.84rem;font-weight:600;color:var(--gold);text-decoration:underline;min-height:44px}
 .lab .disclaimer{color:#8B8271;margin-top:14px}
 
-/* comparison — us-vs-them check table */
-.compare .scrollx{overflow-x:auto;margin:14px calc(-1*var(--gutter)) 0;padding:0 var(--gutter)}
-.cmp{width:100%;border-collapse:separate;border-spacing:0;font-size:.8rem;min-width:340px}
-.cmp th,.cmp td{padding:11px 8px;text-align:center;border-bottom:1px solid var(--line)}
-.cmp th{font-size:.74rem;line-height:1.3}
-.cmp td:first-child,.cmp th:first-child{text-align:left;font-weight:600;font-size:.78rem}
+/* comparison — us-vs-them check table. Fully responsive, NO horizontal scroll. */
+.compare .scrollx{margin:14px 0 0}
+.cmp{width:100%;table-layout:fixed;border-collapse:separate;border-spacing:0}
+.cmp th,.cmp td{padding:10px 4px;text-align:center;border-bottom:1px solid var(--line);word-wrap:break-word}
+.cmp th{font-size:.66rem;line-height:1.25}
+.cmp td:first-child,.cmp th:first-child{text-align:left;font-weight:600;font-size:.72rem;width:37%;line-height:1.3}
 .cmp .maju{background:var(--cream);font-weight:700}
 .cmp th.maju{border-radius:12px 12px 0 0;background:var(--gold)}
 .cmp tr:last-child td.maju{border-radius:0 0 12px 12px}
@@ -253,7 +256,7 @@ footer .wrap>p{margin-bottom:10px}
 
 /* desktop */
 @media(min-width:900px){
-  :root{--maxw:1280px} /* +20% desktop content width, still centered */
+  :root{--maxw:1120px} /* ED-width content column, blank space either side */
   /* ED desktop: gallery sticky left · title + buy box stacked right */
   .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;column-gap:48px;align-items:start;max-width:var(--maxw);margin:0 auto;padding:28px 24px 0}
   .gcol{grid-column:1;grid-row:1 / span 2;position:sticky;top:20px}
@@ -276,9 +279,9 @@ footer .wrap>p{margin-bottom:10px}
   .faq .wrap{max-width:760px}
   .tf__grid{grid-template-columns:1fr 1.1fr;gap:44px;align-items:center}
   .tf__cells{grid-template-columns:1fr 1fr;gap:12px}
-  .founder{max-width:820px;margin-left:auto;margin-right:auto;gap:24px;padding:24px}
-  .founder__photo{width:160px;height:160px}
-  .founder p{font-size:.98rem}
+  .founder{max-width:720px;margin-left:auto;margin-right:auto;gap:22px;padding:22px;align-items:center}
+  .founder__photo{width:120px;height:120px}
+  .founder p{font-size:.95rem}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
 </style>
@@ -327,9 +330,8 @@ footer .wrap>p{margin-bottom:10px}
   <div class="chips" aria-label="Product highlights">
     <!-- "Up to 90%" = the site's established claim (LP body, ads, CV90 SKU). Swap to measured GC number when the assay lands. -->
     <span class="chip">Up to 90% carvacrol</span>
-    <span class="chip">3rd-party tested (ARL)</span>
+    <span class="chip">3rd-party tested</span>
     <span class="chip">2 softgels daily</span>
-    <span class="chip">Non-GMO</span>
   </div>
 </section>
 
@@ -366,7 +368,8 @@ footer .wrap>p{margin-bottom:10px}
   <div class="truststrip">
     <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M9 12l2 2 4-5M12 3l7 3v5c0 4.5-3 8.5-7 10-4-1.5-7-5.5-7-10V6l7-3z"/></svg>3rd-party tested<br>(ARL, ISO 17025)</div>
     <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg>60-day<br>money-back</div>
-    <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 7h13v10H3zM16 10h3l2 3v4h-5M6 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg>Free<br>shipping</div>
+    <!-- shipping cell syncs to the selected tier: Buy 1 misses the $30 free-shipping threshold -->
+    <div><svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M3 7h13v10H3zM16 10h3l2 3v4h-5M6 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM17 19a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"/></svg><span data-ship>Free<br>shipping</span></div>
   </div>
   <p class="atc-note">Cancel anytime · email reminder before each shipment.</p>
 
@@ -437,14 +440,13 @@ footer .wrap>p{margin-bottom:10px}
     <!-- Grüns pattern: "Join 1M+ others filling nutrition gaps". "fixing their gut" is not usable (fix = banned verb). -->
     <h2>Join 32,000+ others supporting their gut</h2>
     <div class="slider" style="margin-top:12px" aria-label="Customer videos">
-      <!-- FTC note: if a clip is from an incentivized creator, the #ad disclosure must be
-           burned into the clip itself since there's no on-page tag anymore. -->
-      <div class="ugc__tile">[UGC_CLIP_1]</div>
-      <div class="ugc__tile">[UGC_CLIP_2]</div>
-      <div class="ugc__tile">[UGC_CLIP_3]</div>
-      <div class="ugc__tile">[UGC_CLIP_4]</div>
-      <div class="ugc__tile">[UGC_CLIP_5]</div>
-      <div class="ugc__tile">[UGC_CLIP_6]</div>
+      <!-- 5 clips, Grüns-style: 3 visible on load, swipe for the rest. Labels overlay each clip.
+           FTC: if a clip is from an incentivized creator, #ad must be burned into the clip itself. -->
+      <div class="ugc__tile">[UGC_CLIP_1]<span class="ugc__label">Why I switched</span></div>
+      <div class="ugc__tile">[UGC_CLIP_2]<span class="ugc__label">My daily routine</span></div>
+      <div class="ugc__tile">[UGC_CLIP_3]<span class="ugc__label">No taste, no burn</span></div>
+      <div class="ugc__tile">[UGC_CLIP_4]<span class="ugc__label">Opening the lab report</span></div>
+      <div class="ugc__tile">[UGC_CLIP_5]<span class="ugc__label">3 months in</span></div>
     </div>
     <div class="cta-row"><button class="btn btn--cta" data-scroll="#buybox">Try today &rarr;</button></div>
   </div>
@@ -486,7 +488,7 @@ footer .wrap>p{margin-bottom:10px}
 </section>
 
 <!-- sourcing — card slider (moved above the comparison per Bryce) -->
-<section class="lazy-section" style="padding-top:0">
+<section class="lazy-section" style="padding-bottom:8px">
   <div class="wrap">
     <p class="kicker">Where it comes from</p>
     <h2 style="font-size:1.3rem"><span class="nowrap">Wild-harvested. Cold-pressed.</span><br>Lab-tested every batch.</h2>
@@ -578,33 +580,14 @@ footer .wrap>p{margin-bottom:10px}
     <div class="founder">
       <div class="founder__photo"><img src="founder-ryan.jpg" alt="Ryan Rigney" width="64" height="64" loading="lazy" style="width:100%;height:100%;object-fit:cover;border-radius:50%"></div>
       <div>
-        <p>“The supplement aisle runs on adjectives: ‘pure,’ ‘potent,’ ‘premium.’ We decided years ago that we’d rather pay a lab than write another adjective. That’s why every single batch is tested by an independent lab before it ships, and why we publish the results. If a number can’t back the claim, we don’t make the claim.”</p>
+        <p>“Every batch is lab-tested for purity, and we publish the results. If a number can’t back the claim, we don’t make the claim.”</p>
         <p class="who">Ryan Rigney, Founder of Maju Superfoods</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- guarantee -->
-<section class="lazy-section" style="padding-top:0">
-  <div class="wrap">
-    <div class="guarantee">
-      <div class="seal" aria-hidden="true">
-        <svg viewBox="0 0 64 64" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="32" cy="26" r="16" fill="#FFCE02" stroke="#AC8D3E"/>
-          <circle cx="32" cy="26" r="11" fill="none" stroke="#AC8D3E" stroke-dasharray="2.5 3"/>
-          <path d="M26.5 26l4 4 7-8" stroke="#2C2926" stroke-width="3"/>
-          <path d="M24 39l-5 14 8-4 5 8 4-9" fill="#EFDA98" stroke="#AC8D3E"/>
-          <path d="M40 39l5 14-8-4-5 8-4-9" fill="#EFDA98" stroke="#AC8D3E"/>
-        </svg>
-      </div>
-      <h2>60-day money-back guarantee</h2>
-      <p>Try it for two full months. If you decide it’s not for you, we’ll refund your order. No forms, no hoops. 10+ years in business, and we stand behind every bottle.</p>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
+<!-- FAQ (guarantee section removed — guarantee lives in trust band, table, FAQ + final CTA) -->
 <section class="faq lazy-section" style="padding-top:0">
   <div class="wrap">
     <h2>Any last questions?</h2>
@@ -671,9 +654,9 @@ footer .wrap>p{margin-bottom:10px}
 // Real IDs from the live storefront (product 8408719917242, Recharge plan 4483580090).
 // Variant prices are renewal prices; $29/$49/$74 intro applied store-side at checkout.
 var SHOPIFY_CONFIG = {
-  buy1:     { variantId: 45944784126138, sellingPlanId: 4483580090, qty: 1, label: 'Buy 1 bottle',      price: '$29', renew: '$79' },
-  buy2get1: { variantId: 45945500172474, sellingPlanId: 4483580090, qty: 1, label: 'Buy 2, Get 1 Free', price: '$49', renew: '$119.85' },
-  buy3get2: { variantId: 45945500205242, sellingPlanId: 4483580090, qty: 1, label: 'Buy 3, Get 2 Free', price: '$74', renew: '$199.75' }
+  buy1:     { variantId: 45944784126138, sellingPlanId: 4483580090, qty: 1, label: 'Buy 1 bottle',      price: '$29', ship: '+ Shipping<br>free at $49+' },
+  buy2get1: { variantId: 45945500172474, sellingPlanId: 4483580090, qty: 1, label: 'Buy 2, Get 1 Free', price: '$49', ship: 'Free<br>shipping' },
+  buy3get2: { variantId: 45945500205242, sellingPlanId: 4483580090, qty: 1, label: 'Buy 3, Get 2 Free', price: '$74', ship: 'Free<br>shipping' }
 };
 var selected = 'buy2get1';
 
@@ -686,7 +669,7 @@ function selectOffer(key){
   });
   var cfg = SHOPIFY_CONFIG[key];
   document.querySelectorAll('[data-price]').forEach(function(el){ el.textContent = cfg.price; });
-  document.querySelectorAll('[data-renew]').forEach(function(el){ el.textContent = cfg.renew; });
+  document.querySelectorAll('[data-ship]').forEach(function(el){ el.innerHTML = cfg.ship; });
   document.querySelectorAll('[data-offer-name]').forEach(function(el){ el.textContent = cfg.label; });
 }
 offers.forEach(function(o){ o.addEventListener('click', function(){ selectOffer(o.dataset.offer); }); });
