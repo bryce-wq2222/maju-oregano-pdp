@@ -138,7 +138,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 /* press — static heading + auto-scrolling logo marquee (ED style) */
 .press{background:#fff;text-align:center;padding:22px 0}
 .press__viewport{overflow:hidden;margin-top:12px}
-.press__track{display:flex;align-items:center;gap:48px;width:max-content;animation:mq 20s linear infinite}
+.press__track{display:flex;align-items:center;gap:48px;width:max-content;animation:mq 32s linear infinite;will-change:transform}
 .press__track img{height:22px;width:auto;opacity:.65}
 @keyframes mq{to{transform:translateX(-50%)}}
 
@@ -259,7 +259,7 @@ h2{font-size:1.45rem;margin-bottom:8px}
 .faq summary::after{content:"+";font-size:1.3rem;color:var(--bronze);flex:none}
 .faq details[open] summary::after{content:"–"}
 .faq .a{padding:0 16px 16px;font-size:.86rem;color:#5c564d}
-.final{background:var(--ink);color:var(--cream);text-align:center;padding-bottom:110px}
+.final{background:var(--ink);color:var(--cream);text-align:center;padding-bottom:40px}
 .final h2{color:#fff}
 .final .btn{margin-top:16px}
 .final .offer-recap{font-size:.85rem;margin-top:10px;color:#CBC2AB}
@@ -316,9 +316,7 @@ footer .wrap>p{margin-bottom:10px}
 </head>
 <body>
 
-<!-- announcement strip only — no header bar (Everyday Dose pattern) -->
-<div class="proofstrip"><strong>1,000,000+ orders</strong> shipped since 2015 &nbsp;·&nbsp; 2-day &amp; next-day shipping</div>
-
+<!-- announcement bar removed: the store's fixed header overlapped it on Shopify -->
 <div class="hero-grid">
 <div class="gcol">
 <!-- 1. product photo carousel FIRST -->
@@ -448,22 +446,22 @@ footer .wrap>p{margin-bottom:10px}
       <!-- NBC: substantiated — the brand's own cv90 listing image says "MAJU HAS BEEN SEEN ON Chicago Tribune | BuzzFeed | NBC".
            ⚠ NYT: still NOT substantiated anywhere. LAUNCH GATE: real coverage link or it comes out. -->
       <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="Chicago Tribune" width="150" height="24" loading="lazy">
-      <span class="wordmark wordmark--serif">The New York Times</span>
+      <img src="press/oc-press-nyt.png" alt="The New York Times" width="147" height="20" loading="lazy" style="height:20px">
       <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="BuzzFeed" width="120" height="24" loading="lazy">
-      <span class="wordmark">NBC</span>
-      <span class="wordmark wordmark--serif" style="letter-spacing:.02em">Daily Mail</span>
+      <img src="press/oc-press-nbc.png" alt="NBC" width="32" height="32" loading="lazy" style="height:32px">
+      <img src="press/oc-press-dailymail.png" alt="Daily Mail" width="97" height="22" loading="lazy">
       <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="Zulily" width="100" height="24" loading="lazy">
-      <span class="wordmark wordmark--serif" style="font-style:italic">New York Post</span>
-      <span class="wordmark">THE DAILY BEAST</span>
+      <img src="press/oc-press-nypost.png" alt="New York Post" width="136" height="22" loading="lazy">
+      <img src="press/oc-press-dailybeast.png" alt="The Daily Beast" width="86" height="22" loading="lazy">
       <!-- set 2 (duplicate for seamless loop) -->
       <img src="https://majusuperfoods.com/cdn/shop/files/Chicago_Tribune_Logo.svg?v=1763039352&width=300" alt="" aria-hidden="true" width="150" height="24" loading="lazy">
-      <span class="wordmark wordmark--serif" aria-hidden="true">The New York Times</span>
+      <img src="press/oc-press-nyt.png" alt="" aria-hidden="true" width="147" height="20" loading="lazy" style="height:20px">
       <img src="https://majusuperfoods.com/cdn/shop/files/BuzzFeed.svg?v=1763039353&width=300" alt="" aria-hidden="true" width="120" height="24" loading="lazy">
-      <span class="wordmark" aria-hidden="true">NBC</span>
-      <span class="wordmark wordmark--serif" aria-hidden="true" style="letter-spacing:.02em">Daily Mail</span>
+      <img src="press/oc-press-nbc.png" alt="" aria-hidden="true" width="32" height="32" loading="lazy" style="height:32px">
+      <img src="press/oc-press-dailymail.png" alt="" aria-hidden="true" width="97" height="22" loading="lazy">
       <img src="https://majusuperfoods.com/cdn/shop/files/Zulily_logo.svg?v=1763039351&width=300" alt="" aria-hidden="true" width="100" height="24" loading="lazy">
-      <span class="wordmark wordmark--serif" aria-hidden="true" style="font-style:italic">New York Post</span>
-      <span class="wordmark" aria-hidden="true">THE DAILY BEAST</span>
+      <img src="press/oc-press-nypost.png" alt="" aria-hidden="true" width="136" height="22" loading="lazy">
+      <img src="press/oc-press-dailybeast.png" alt="" aria-hidden="true" width="86" height="22" loading="lazy">
     </div>
   </div>
 </section>
@@ -619,7 +617,7 @@ footer .wrap>p{margin-bottom:10px}
 
 
 <!-- founder note -->
-<section class="lazy-section" style="padding-top:0">
+<section class="lazy-section" style="padding-top:28px">
   <div class="wrap">
     <p class="kicker">A note from our founder</p>
     <div class="founder">
